@@ -3,21 +3,33 @@
   <head>
     <meta charset="utf-8">
     <title>Robert's blog Site</title>
+    <link rel = "stylesheet" type= "text/css" href = "styles/style.css"/>
   </head>
   <body>
     <header>
-      <h1>Blogs!!!!</h1>
+      <h1>Blogs about stuff!!!!</h1>
       <nav>
-        <aside>
-        </aside>
-      </nav>
+        <ul>
+          <li>
+            Articles
+          </li>
+          <li>
+            About
+          </li>
+        </nav>
     </header>
     <main>
-      <article>
+      <article id="template">
+        <h2 class="blogTitle"></h2>
+        <p class="author"><a class = "authorLink" href="#"></a></p>
+        <p class="blogBody"></p>
       </article>
     </main>
     <footer>
     </footer>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src ="scripts/blog.js"></script>
+    <script type="text/javascript" src ="scripts/blogArticles.js"></script>
+    <script type="text/javascript" src ="scripts/article.js"></script>
   </body>
 </html>
