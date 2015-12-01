@@ -8,3 +8,6 @@ img{
 .blogTitle{
   clear: left;
 }
+#aboutMeArticle{
+  display: none;
+}

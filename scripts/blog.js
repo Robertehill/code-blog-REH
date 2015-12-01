@@ -16,3 +16,11 @@ blog.daysSincePost = function(postDate){
   var postDate = new Date(postDate);
   return Math.round(Math.abs((postDate.getTime()-today.getTime())/(oneDay)));
 };
+blog.truncateArticles = function() {
+  $('.blogBody p:not(:first-child)').hide();
+  $('main').on('click', '.readOn', function(event){
+    event.preventDefault();
+    $(this).parent().find('p').fadeIn();
+    $(this).hide();
+  });
+};
