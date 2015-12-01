@@ -15,7 +15,7 @@ var Article = function(props){
   this.blogBody = props.blogBody;
   this.publishedOn = props.publishedOn;
   this.category = props.category;
-}
+};
 
 Article.prototype.toHTML = function(){
   var $artClone = $('#template').clone();
@@ -24,8 +24,8 @@ Article.prototype.toHTML = function(){
   $artClone.find('.author').html('A post about ' + this.category +' by ' +'<a href ='+'"'+ this.authorUrl+'"' +'>' + this.author+'</a> ' + daysSincePost(this.publishedOn) +' days since posted');
   $artClone.find('.blogBody').html(this.blogBody);
   daysSincePost(this.publishedOn);
-  $("main").append($artClone);
-}
+  $('main').append($artClone);
+};
 
 function render(){
   blog.rawData.sort(function(a, b) {
@@ -34,8 +34,8 @@ function render(){
     return a>b ? -1 : a<b ? 1 : 0;
   });
   for (var i = 0; i < blog.rawData.length; i++){
-      var art = new Article(blog.rawData[i]);
-      art.toHTML();
-    }
+    var art = new Article(blog.rawData[i]);
+    art.toHTML();
+  }
 }
 render();
