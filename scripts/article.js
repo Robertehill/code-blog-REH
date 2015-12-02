@@ -20,3 +20,5 @@ Article.prototype.toHTML = function(){
 };
 $(document).ready(blog.render());
 $(document).ready(blog.truncateArticles());
+blog.makeFilterList(blog.filtAut, 'author');
+blog.makeFilterList(blog.filtCat, 'category');
