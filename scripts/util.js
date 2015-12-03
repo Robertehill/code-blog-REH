@@ -9,7 +9,7 @@ util.toggleAboutMe = function() {
   });
   $('header').on('click', '#showArts', function(event){
     event.preventDefault();
-    console.log('show about me function');
+    // console.log('show about me function');
     $('#aboutMeArticle').fadeOut();
     $('#filteringForm').fadeIn();
     $('.blogPosts').fadeIn();

@@ -39,20 +39,18 @@ blog.makeFilterList = function(array, prop) {
     $opt.attr('id', array[i]);
     $opt.text(array[i]);
     $('#'+prop +'List').append($opt);
-    console.log(prop +'List');
+    // console.log(prop +'List');
   }
 };
 blog.showFilteredArts = function() {
   blog.makeFilterList(blog.filtAut, 'author');
   blog.makeFilterList(blog.filtCat, 'category');
-  $('#template').attr('style', 'display:none');
   $('#categoryList').change(function() {
     $('main').find('article').show();
     // console.log(this.value);
     $('#authorList').find(':first-child').attr('selected', true);
     if(this.value === 'reset'){
-      console.log('reset filter');
-      $('#template').attr('style', 'display:none');
+      // console.log('reset filter');
       $(document).ready(blog.render());
     }
     else{
@@ -65,8 +63,7 @@ blog.showFilteredArts = function() {
     // console.log(this.value);
     $('#categoryList').find(':first-child').attr('selected', true);
     if(this.value === 'reset'){
-      console.log('reset filter');
-      $('#template').attr('style', 'display:none');
+      // console.log('reset filter');
       $(document).ready(blog.render());
     }
     else{

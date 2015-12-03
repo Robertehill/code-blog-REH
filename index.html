@@ -6,15 +6,33 @@
     <link rel = "stylesheet" type= "text/css" href = "styles/normalize.css"/>
     <link rel = "stylesheet" type= "text/css" href = "styles/skeleton.css"/>
     <link rel = "stylesheet" type= "text/css" href = "styles/style.css"/>
+
+    <article id="template" class="display-none">
+      <h2 class="blogTitle"></h2>
+      <p class="author"><a class = "authorLink" href="#"></a></p>
+
+      <section class="blogBody"></section>
+      <button class="readOn" type="click" hidden="true">Read More</button>
+    </article>
   </head>
   <body>
-    <header>
+    <header class="bg-White">
       <h1>The Blah Blog!!!!</h1>
       <nav>
-        <a id="showArts" href="#">Articles</a>
-        <a id="showAboutMe" href="#">About me</a>
-        <a href="https://twitter.com/">Twitter</a>
-        <a href="https://github.com/">GitHub</a>
+        <ul>
+          <li class="inline">
+            <a id="showArts" href="#">Articles</a>
+          </li>
+          <li class="inline">
+            <a id="showAboutMe" href="#">About me</a>
+          </li>
+          <li class="inline">
+            <a href="https://twitter.com/">Twitter</a>
+          </li>
+          <li class="inline">
+            <a href="https://github.com/">GitHub</a>
+          </li>
+        </ul>
       </nav>
     </header>
     <form id="filteringForm">
@@ -26,14 +44,7 @@
       </select>
     </form>
     <main>
-      <article id="template">
-        <h2 class="blogTitle"></h2>
-        <p class="author"><a class = "authorLink" href="#"></a></p>
-
-        <section class="blogBody"></section>
-        <button class="readOn" type="click" hidden="true">Read More</button>
-      </article>
-      <section id="aboutMeArticle">Stuff about Robert!
+      <section id="aboutMeArticle" class="display-none bg-White">Stuff about Robert!
           <ul>
             <li>I like camping</li>
             <li> more stuff I like</li>
@@ -43,6 +54,7 @@
     </main>
     <footer>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src ="scripts/util.js"></script>
     <script type="text/javascript" src ="scripts/blog.js"></script>

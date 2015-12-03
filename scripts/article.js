@@ -19,6 +19,11 @@ Article.prototype.toHTML = function(){
   $('main').append($artClone);
 };
 // need to group these in one function
-$(document).ready(blog.render());
-$(document).ready(blog.truncateArticles());
-blog.showFilteredArts();
+$(function() {
+  blog.render();
+  blog.truncateArticles();
+  blog.showFilteredArts();
+});
+// $(document).ready(blog.render());
+// $(document).ready(blog.truncateArticles());
+// blog.showFilteredArts();
