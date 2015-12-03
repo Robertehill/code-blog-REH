@@ -42,3 +42,37 @@ blog.makeFilterList = function(array, prop) {
     console.log(prop +'List');
   }
 };
+blog.showFilteredArts = function() {
+  blog.makeFilterList(blog.filtAut, 'author');
+  blog.makeFilterList(blog.filtCat, 'category');
+  $('#template').attr('style', 'display:none');
+  $('#categoryList').change(function() {
+    $('main').find('article').show();
+    // console.log(this.value);
+    $('#authorList').find(':first-child').attr('selected', true);
+    if(this.value === 'reset'){
+      console.log('reset filter');
+      $('#template').attr('style', 'display:none');
+      $(document).ready(blog.render());
+    }
+    else{
+      // console.log($('main').find('article:contains(' + this.value +')').hide());
+      $('main').find('article:not(:contains(' + this.value +'))').hide();
+    }
+  });
+  $('#authorList').change(function() {
+    $('main').find('article').show();
+    // console.log(this.value);
+    $('#categoryList').find(':first-child').attr('selected', true);
+    if(this.value === 'reset'){
+      console.log('reset filter');
+      $('#template').attr('style', 'display:none');
+      $(document).ready(blog.render());
+    }
+    else{
+      // console.log($('main').find('article:contains(' + this.value +')').hide());
+      $('main').find('article:not(:contains(' + this.value +'))').hide();
+    }
+  });
+
+};

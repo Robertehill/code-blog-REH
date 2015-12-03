@@ -18,7 +18,7 @@ Article.prototype.toHTML = function(){
   $artClone.find('.readOn').show();
   $('main').append($artClone);
 };
+// need to group these in one function
 $(document).ready(blog.render());
 $(document).ready(blog.truncateArticles());
-blog.makeFilterList(blog.filtAut, 'author');
-blog.makeFilterList(blog.filtCat, 'category');
+blog.showFilteredArts();
