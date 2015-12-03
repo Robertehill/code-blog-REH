@@ -3,32 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>Robert's blog Site</title>
+    <link rel = "stylesheet" type= "text/css" href = "styles/normalize.css"/>
+    <link rel = "stylesheet" type= "text/css" href = "styles/skeleton.css"/>
     <link rel = "stylesheet" type= "text/css" href = "styles/style.css"/>
   </head>
   <body>
     <header>
       <h1>The Blah Blog!!!!</h1>
       <nav>
-        <ul>
-          <li>
-            <a id="showArts" href="#">Articles</a>
-          </li>
-          <li>
-            <a id="showAboutMe" href="#">About me</a>
-          </li>
-        <li>
-          <a href="https://twitter.com/">Twitter</a>
-        </li>
-        <li>
-          <a href="https://github.com/">GitHub</a>
-        </li>
-        </nav>
+        <a id="showArts" href="#">Articles</a>
+        <a id="showAboutMe" href="#">About me</a>
+        <a href="https://twitter.com/">Twitter</a>
+        <a href="https://github.com/">GitHub</a>
+      </nav>
     </header>
     <form id="filteringForm">
-      <select id="categoryList">
+      <select id="categoryList" class="six columns">
       <option value="reset">---Filter by category---</option>
       </select>
-      <select id="authorList">
+      <select id="authorList" class="six columns">
       <option value="reset">---Filter by author---</option>
       </select>
     </form>
@@ -36,6 +29,7 @@
       <article id="template">
         <h2 class="blogTitle"></h2>
         <p class="author"><a class = "authorLink" href="#"></a></p>
+
         <section class="blogBody"></section>
         <button class="readOn" type="click" hidden="true">Read More</button>
       </article>
