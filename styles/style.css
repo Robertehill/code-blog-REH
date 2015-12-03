@@ -4,6 +4,11 @@ header{
   margin: 1em;
   text-align: center;
 }
+footer{
+  padding: 1em;
+  margin: 1em;
+  text-align: center;
+}
 
 form{
   padding: 2em;
