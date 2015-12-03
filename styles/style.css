@@ -1,37 +1,66 @@
-*{
-  padding: .25em;
-  margin: .25em;
-
-  /*color: 90d4c5;*/
-}
 header{
-  background-color: white;
-  /*color: #6C36F7;*/
+  /*background-color: white;*/
+  padding: 1em;
+  margin: 1em;
+  text-align: center;
+}
+footer{
+  padding: 1em;
+  margin: 1em;
+  text-align: center;
 }
 
+form{
+  padding: 2em;
+  /*margin: 1em;*/
+}
+
+.inline{
+  display: inline;
+  text-align: center;
+  padding: 1em;
+  font-size: 2em;
+}
+
+nav a{
+  margin: 2em;
+}
 
 article{
   background-color: white;
   border: 1px solid;
-}
-body{
-  background-color: #6B1F30;
-}
-img{
-  width: 5em;
-  height: 5em;
-  display: block;
-  align: left;
-  /*float: left;*/
-  clear: left;
+  padding: 1em;
   margin: 1em;
 }
+
+body{
+  background-color: #6B1F30;
+  padding: 1em;
+  margin: 1em;
+}
+
+img{
+  /*width: 5em;*/
+  max-height: 15%;
+  /*height: 5em;*/
+  display: block;
+  align: left;
+  /*clear: left;*/
+  margin: 1em;
+}
+
 .blogTitle{
   clear: left;
 }
+
 #aboutMeArticle{
-  display: none;
+  /*background-color: white;*/
+  padding: 1em;
 }
-#template{
+.bg-White{
+  background-color: white;
+}
+
+.display-none{
   display: none;
 }

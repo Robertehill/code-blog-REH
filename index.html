@@ -2,44 +2,42 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Robert's blog Site</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <link rel = "stylesheet" type= "text/css" href = "styles/normalize.css"/>
+    <link rel = "stylesheet" type= "text/css" href = "styles/skeleton.css"/>
     <link rel = "stylesheet" type= "text/css" href = "styles/style.css"/>
+    <article id="template" class="display-none">
+      <h2 class="blogTitle"></h2>
+      <p class="author"><a class = "authorLink" href="#"></a></p>
+
+      <section class="blogBody"></section>
+      <button class="readOn" type="click" hidden="true">Read More</button>
+    </article>
+    <title>Robert's blog Site</title>
   </head>
   <body>
-    <header>
+    <header class="bg-White">
       <h1>The Blah Blog!!!!</h1>
       <nav>
         <ul>
-          <li>
+          <li class="inline">
             <a id="showArts" href="#">Articles</a>
           </li>
-          <li>
+          <li class="inline">
             <a id="showAboutMe" href="#">About me</a>
-          </li>
-        <li>
-          <a href="https://twitter.com/">Twitter</a>
-        </li>
-        <li>
-          <a href="https://github.com/">GitHub</a>
-        </li>
-        </nav>
+        </ul>
+      </nav>
     </header>
     <form id="filteringForm">
-      <select id="categoryList">
+      <select id="categoryList" class="six columns">
       <option value="reset">---Filter by category---</option>
       </select>
-      <select id="authorList">
+      <select id="authorList" class="six columns">
       <option value="reset">---Filter by author---</option>
       </select>
     </form>
     <main>
-      <article id="template">
-        <h2 class="blogTitle"></h2>
-        <p class="author"><a class = "authorLink" href="#"></a></p>
-        <section class="blogBody"></section>
-        <button class="readOn" type="click" hidden="true">Read More</button>
-      </article>
-      <section id="aboutMeArticle">Stuff about Robert!
+      <section id="aboutMeArticle" class="display-none bg-White">Stuff about Robert!
           <ul>
             <li>I like camping</li>
             <li> more stuff I like</li>
@@ -47,8 +45,18 @@
           </ul>
       </section>
     </main>
-    <footer>
+    <footer class="bg-White">
+      <ul>
+        </li>
+        <li class="inline">
+          <a href="https://twitter.com/">Twitter</a>
+        </li>
+        <li class="inline">
+          <a href="https://github.com/">GitHub</a>
+        </li>
+      </ul>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src ="scripts/util.js"></script>
     <script type="text/javascript" src ="scripts/blog.js"></script>
