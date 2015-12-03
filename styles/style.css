@@ -1,10 +1,37 @@
+*{
+  padding: .25em;
+  margin: .25em;
+
+  /*color: 90d4c5;*/
+}
+header{
+  background-color: white;
+  /*color: #6C36F7;*/
+}
+
+
+article{
+  background-color: white;
+  border: 1px solid;
+}
+body{
+  background-color: #6B1F30;
+}
 img{
   width: 5em;
   height: 5em;
-  float: left;
+  display: block;
+  align: left;
+  /*float: left;*/
   clear: left;
   margin: 1em;
 }
 .blogTitle{
   clear: left;
+}
+#aboutMeArticle{
+  display: none;
+}
+#template{
+  display: none;
 }

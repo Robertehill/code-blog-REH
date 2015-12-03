@@ -10,12 +10,15 @@ Article.prototype.toHTML = function(){
   var $artClone = $('#template').clone();
   $artClone.removeAttr('id');
   $artClone.attr('id', this.blogTitle);
+  $artClone.attr('class', 'blogPosts');
   $artClone.find('.blogTitle').text(this.blogTitle);
   $artClone.find('.authorLink').attr('href', this.authorUrl).text('By ' + this.author);
   $artClone.find('.author').after('A post about ' + this.category + ' that is ' +blog.daysSincePost(this.publishedOn) +' days old');
-
   $artClone.find('.blogBody').html(this.blogBody);
+  $artClone.find('.readOn').show();
   $('main').append($artClone);
 };
+// need to group these in one function
 $(document).ready(blog.render());
-// blog.render(); //calling this here, this is the last line that loads(at this time)
+$(document).ready(blog.truncateArticles());
+blog.showFilteredArts();

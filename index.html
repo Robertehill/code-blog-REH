@@ -7,27 +7,50 @@
   </head>
   <body>
     <header>
-      <h1>Blogs about stuff!!!!</h1>
+      <h1>The Blah Blog!!!!</h1>
       <nav>
         <ul>
           <li>
-            Articles
+            <a id="showArts" href="#">Articles</a>
           </li>
           <li>
-            About
+            <a id="showAboutMe" href="#">About me</a>
           </li>
+        <li>
+          <a href="https://twitter.com/">Twitter</a>
+        </li>
+        <li>
+          <a href="https://github.com/">GitHub</a>
+        </li>
         </nav>
     </header>
+    <form id="filteringForm">
+      <select id="categoryList">
+      <option value="reset">---Filter by category---</option>
+      </select>
+      <select id="authorList">
+      <option value="reset">---Filter by author---</option>
+      </select>
+    </form>
     <main>
       <article id="template">
         <h2 class="blogTitle"></h2>
         <p class="author"><a class = "authorLink" href="#"></a></p>
-        <p class="blogBody"></p>
+        <section class="blogBody"></section>
+        <button class="readOn" type="click" hidden="true">Read More</button>
       </article>
+      <section id="aboutMeArticle">Stuff about Robert!
+          <ul>
+            <li>I like camping</li>
+            <li> more stuff I like</li>
+            <li>and some Blah!!!</li>
+          </ul>
+      </section>
     </main>
     <footer>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src ="scripts/util.js"></script>
     <script type="text/javascript" src ="scripts/blog.js"></script>
     <script type="text/javascript" src ="scripts/blogArticles.js"></script>
     <script type="text/javascript" src ="scripts/article.js"></script>
