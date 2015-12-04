@@ -2,28 +2,40 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel = "stylesheet" type= "text/css" href = "styles/normalize.css"/>
     <link rel = "stylesheet" type= "text/css" href = "styles/skeleton.css"/>
     <link rel = "stylesheet" type= "text/css" href = "styles/style.css"/>
-    <article id="template" class="display-none">
-      <h2 class="blogTitle"></h2>
-      <p class="author"><a class = "authorLink" href="#"></a></p>
-
-      <section class="blogBody"></section>
-      <button class="readOn" type="click" hidden="true">Read More</button>
-    </article>
+    <script id="post-template" type="text/x-post-template">
+      <article class="blogPosts" id="{{blogTitle}}">
+        <h2>{{blogTitle}}</h2>
+        <a href="{{{authorUrl}}}">by {{{author}}}</a>
+        <section>A post about {{this.category}}  that is  {{this.daysSincePost}}  days old</section>
+        <section class="blogBody">{{{blogBody}}}</section>
+        <button class="readOn" type="click">Read More</button>
+        <section class="searchProps">{{{author}}} {{{category}}}</section>
+      </article>
+    </script>
     <title>Robert's blog Site</title>
   </head>
   <body>
-    <header class="bg-White">
+    <header class="bg-White align-center">
       <h1>The Blah Blog!!!!</h1>
       <nav>
         <ul>
-          <li class="inline">
+          </li>
+          <li class="inline align-center">
+            <a href="https://twitter.com/">Twitter</a>
+          </li>
+          <li class="inline align-center">
+            <a href="https://github.com/">GitHub</a>
+          </li>
+        </ul>
+        <ul>
+          <li class="inline align-center">
             <a id="showArts" href="#">Articles</a>
           </li>
-          <li class="inline">
+          <li class="inline align-center">
             <a id="showAboutMe" href="#">About me</a>
         </ul>
       </nav>
@@ -45,16 +57,8 @@
           </ul>
       </section>
     </main>
-    <footer class="bg-White">
-      <ul>
-        </li>
-        <li class="inline">
-          <a href="https://twitter.com/">Twitter</a>
-        </li>
-        <li class="inline">
-          <a href="https://github.com/">GitHub</a>
-        </li>
-      </ul>
+    <footer>
+
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

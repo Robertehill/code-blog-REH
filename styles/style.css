@@ -1,29 +1,35 @@
+@media only screen and (min-width: 635px) {
+    nav li {
+        font-size: 2em;
+        color: #6B1F30;
+    }
+}
+
 header{
   /*background-color: white;*/
   padding: 1em;
   margin: 1em;
-  text-align: center;
 }
+
 footer{
   padding: 1em;
   margin: 1em;
-  text-align: center;
 }
 
 form{
   padding: 2em;
-  /*margin: 1em;*/
+  margin: 1em;
 }
 
-.inline{
-  display: inline;
-  text-align: center;
-  padding: 1em;
-  font-size: 2em;
+main{
+  clear: both;
 }
 
-nav a{
-  margin: 2em;
+a:link {
+    color: #6B1F30;
+}
+a:visited {
+    color: black;
 }
 
 article{
@@ -40,6 +46,7 @@ body{
 }
 
 img{
+  max-width: 90%;
   /*width: 5em;*/
   max-height: 15%;
   /*height: 5em;*/
@@ -50,17 +57,28 @@ img{
 }
 
 .blogTitle{
-  clear: left;
+  /*clear: left;*/
 }
 
 #aboutMeArticle{
-  /*background-color: white;*/
   padding: 1em;
 }
 .bg-White{
   background-color: white;
 }
+.searchProps{
+  visibility: hidden;
+}
 
 .display-none{
   display: none;
+}
+.align-center{
+  text-align: center;
+
+}
+
+.inline{
+  display: inline;
+  padding: 1em;
 }
