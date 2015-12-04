@@ -2,14 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel = "stylesheet" type= "text/css" href = "styles/normalize.css"/>
     <link rel = "stylesheet" type= "text/css" href = "styles/skeleton.css"/>
     <link rel = "stylesheet" type= "text/css" href = "styles/style.css"/>
     <script id="post-template" type="text/x-post-template">
-      <article class="blogPosts">
+      <article class="blogPosts" id="{{blogTitle}}">
         <h2>{{blogTitle}}</h2>
         <a href="{{{authorUrl}}}">by {{{author}}}</a>
+        <section>A post about {{this.category}}  that is  {{this.daysSincePost}}  days old</section>
         <section class="blogBody">{{{blogBody}}}</section>
         <button class="readOn" type="click">Read More</button>
         <section class="searchProps">{{{author}}} {{{category}}}</section>

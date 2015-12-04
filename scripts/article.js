@@ -5,6 +5,12 @@ var Article = function(props){
   this.blogBody = props.blogBody;
   this.publishedOn = props.publishedOn;
   this.category = props.category;
+  this.daysSincePost = function(){
+    var today = new Date();
+    var oneDay = 24*60*60*1000;
+    var postDate = new Date(this.publishedOn);
+    return Math.round(Math.abs((postDate.getTime()-today.getTime())/(oneDay)));
+  };
 };
 Article.prototype.toHTML = function(){
   // var $artClone = $('#template').clone();
@@ -22,12 +28,9 @@ Article.prototype.toHTML = function(){
   var html = template(this);
   $('main').append(html);
 };
-// need to group these in one function
+
 $(function() {
   blog.render();
   blog.truncateArticles();
   blog.showFilteredArts();
 });
-// $(document).ready(blog.render());
-// $(document).ready(blog.truncateArticles());
-// blog.showFilteredArts();

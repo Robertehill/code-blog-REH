@@ -12,12 +12,6 @@ blog.render = function(){
     art.toHTML();
   }
 };
-blog.daysSincePost = function(postDate){
-  var today = new Date();
-  var oneDay = 24*60*60*1000;
-  var postDate = new Date(postDate);
-  return Math.round(Math.abs((postDate.getTime()-today.getTime())/(oneDay)));
-};
 blog.truncateArticles = function() {
   $('.blogBody p:not(:first-child)').hide();
   $('main').on('click', '.readOn', function(event){
@@ -54,8 +48,9 @@ blog.showFilteredArts = function() {
       $(document).ready(blog.render());
     }
     else{
-      // console.log($('main').find('article:contains(' + this.value +')').hide());
-
+      // $('blogPost').find(data(this.value))
+      // console.log($('blogPost').find(data(this.value)))''
+      // $('main').find('#'+)
       $('main').find('.searchProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
