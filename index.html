@@ -6,13 +6,15 @@
     <link rel = "stylesheet" type= "text/css" href = "styles/normalize.css"/>
     <link rel = "stylesheet" type= "text/css" href = "styles/skeleton.css"/>
     <link rel = "stylesheet" type= "text/css" href = "styles/style.css"/>
-    <article id="template" class="display-none">
-      <h2 class="blogTitle"></h2>
-      <p class="author"><a class = "authorLink" href="#"></a></p>
-
-      <section class="blogBody"></section>
-      <button class="readOn" type="click" hidden="true">Read More</button>
-    </article>
+    <script id="post-template" type="text/x-post-template">
+      <article class="blogPosts">
+        <h2>{{blogTitle}}</h2>
+        <a href="{{{authorUrl}}}">by {{{author}}}</a>
+        <section class="blogBody">{{{blogBody}}}</section>
+        <button class="readOn" type="click">Read More</button>
+        <section class="postProps">{{{author}}} {{{category}}}</section>
+      </article>
+    </script>
     <title>Robert's blog Site</title>
   </head>
   <body>

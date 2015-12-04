@@ -14,7 +14,9 @@ form{
   padding: 2em;
   /*margin: 1em;*/
 }
-
+main{
+  clear: both;
+}
 .inline{
   display: inline;
   text-align: center;
@@ -59,6 +61,9 @@ img{
 }
 .bg-White{
   background-color: white;
+}
+.postProps{
+  visibility: hidden;
 }
 
 .display-none{

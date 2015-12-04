@@ -47,7 +47,7 @@ blog.showFilteredArts = function() {
   blog.makeFilterList(blog.filtCat, 'category');
   $('#categoryList').change(function() {
     $('main').find('article').show();
-    // console.log(this.value);
+    console.log(this.value);
     $('#authorList').find(':first-child').attr('selected', true);
     if(this.value === 'reset'){
       // console.log('reset filter');
@@ -55,7 +55,8 @@ blog.showFilteredArts = function() {
     }
     else{
       // console.log($('main').find('article:contains(' + this.value +')').hide());
-      $('main').find('article:not(:contains(' + this.value +'))').hide();
+
+      $('main').find('.postProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
   $('#authorList').change(function() {
@@ -68,8 +69,7 @@ blog.showFilteredArts = function() {
     }
     else{
       // console.log($('main').find('article:contains(' + this.value +')').hide());
-      $('main').find('article:not(:contains(' + this.value +'))').hide();
+      $('main').find('.postProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
-
 };
