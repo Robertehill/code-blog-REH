@@ -56,7 +56,7 @@ blog.showFilteredArts = function() {
     else{
       // console.log($('main').find('article:contains(' + this.value +')').hide());
 
-      $('main').find('.postProps:not(:contains(' + this.value +'))').parent().hide();
+      $('main').find('.searchProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
   $('#authorList').change(function() {
@@ -69,7 +69,7 @@ blog.showFilteredArts = function() {
     }
     else{
       // console.log($('main').find('article:contains(' + this.value +')').hide());
-      $('main').find('.postProps:not(:contains(' + this.value +'))').parent().hide();
+      $('main').find('.searchProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
 };
