@@ -19,8 +19,9 @@ main{
 }
 .inline{
   display: inline;
-  text-align: center;
   padding: 1em;
+  /*need to move these*/
+  text-align: center;
   font-size: 2em;
 }
 
