@@ -43,6 +43,7 @@ body{
 }
 
 img{
+  max-width: 90%;
   /*width: 5em;*/
   max-height: 15%;
   /*height: 5em;*/
