@@ -2,27 +2,30 @@ header{
   /*background-color: white;*/
   padding: 1em;
   margin: 1em;
-  text-align: center;
 }
+
 footer{
   padding: 1em;
   margin: 1em;
-  text-align: center;
 }
 
 form{
   padding: 2em;
-  /*margin: 1em;*/
+  margin: 1em;
 }
+
 main{
   clear: both;
 }
+
+.align-center{
+  text-align: center;
+  /*font-size: 2em;*/
+}
+
 .inline{
   display: inline;
-  padding: 1em;
-  /*need to move these*/
-  text-align: center;
-  font-size: 2em;
+  /*padding: 1em;*/
 }
 
 nav a{
@@ -58,7 +61,6 @@ img{
 }
 
 #aboutMeArticle{
-  /*background-color: white;*/
   padding: 1em;
 }
 .bg-White{
