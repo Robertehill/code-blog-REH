@@ -21,7 +21,7 @@ preview.getFormInfo = function() {
     // var html = template(this);
     // $('#preview').append(html);
     $('#preview').find('#preblogTitle').html("<p>" + formTitle  + "</p>");
-    $('#preview').find('#preauthor').html("<p>" + formAuthor + "<p>");
+    $('#preview').find('#preAuthor').html("<p>" + formAuthor + "<p>");
     $('#preview').find('#preAuthorUrl').html("<p>" + formAuthorUrl + "</p");
     $('#preview').find('#preblogBody').html(marked(formBody));
     $('#preview').find('#prepub').html("<p>" + today + "</p>");
@@ -34,7 +34,7 @@ preview.getFormInfo = function() {
       author: formAuthor,
       authorUrl: formAuthorUrl,
       publishedOn: today,
-      blogBody: formBlogBody
+      blogBody: formBody
       }
 
       var jsonPost = JSON.stringify(newPost);
@@ -45,5 +45,5 @@ preview.getFormInfo = function() {
   })
 };
 // $(function() {
-  preveiw.getFormInfo();
+  preview.getFormInfo();
 // })
