@@ -20,30 +20,30 @@ preview.getFormInfo = function() {
     // var template = Handlebars.compile(source);
     // var html = template(this);
     // $('#preview').append(html);
-    $('#preview').find('#preblogTitle').html("<p>" + formTitle  + "</p>");
-    $('#preview').find('#preAuthor').html("<p>" + formAuthor + "<p>");
-    $('#preview').find('#preAuthorUrl').html("<p>" + formAuthorUrl + "</p");
+    $('#preview').find('#preblogTitle').html('<p>' + formTitle + '</p>');
+    $('#preview').find('#preAuthor').html('<p>' + formAuthor + '<p>');
+    $('#preview').find('#preAuthorUrl').html('<p>' + formAuthorUrl + '</p>');
     $('#preview').find('#preblogBody').html(marked(formBody));
-    $('#preview').find('#prepub').html("<p>" + today + "</p>");
-    $('#preview').find('#precat').html("<p>" + formCategory + "</p>");
+    $('#preview').find('#prepub').html('<p>' + today + '</p>');
+    $('#preview').find('#precat').html('<p>' + formCategory + '</p>');
     $('#submitButton').on('click', function(event) {
       event.preventDefault();
       var newPost = {
-      blogTitle: formTitle,
-      category: formCategory,
-      author: formAuthor,
-      authorUrl: formAuthorUrl,
-      publishedOn: today,
-      blogBody: formBody
-      }
+        blogTitle: formTitle,
+        category: formCategory,
+        author: formAuthor,
+        authorUrl: formAuthorUrl,
+        publishedOn: today,
+        blogBody: formBody
+      };
 
       var jsonPost = JSON.stringify(newPost);
       console.log(jsonPost);
       $('#stringified').html(jsonPost);
 
-    })
-  })
+    });
+  });
 };
-// $(function() {
+$(function() {
   preview.getFormInfo();
-// })
+});
