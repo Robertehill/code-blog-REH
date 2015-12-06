@@ -64,7 +64,7 @@ blog.showFilteredArts = function() {
       // console.log('reset filter');
       // this is dupeing articles
       $('main').find('article').show();
-      $(document).ready(blog.render());
+      // $(document).ready(blog.render());
     }
     else{
       // console.log($('main').find('article:contains(' + this.value +')').hide());

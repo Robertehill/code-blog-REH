@@ -1,5 +1,4 @@
 blog.rawData = [
-
   {
     blogTitle:       'Baseball Ipsum',
     category:    'sports',
