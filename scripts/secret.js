@@ -1,5 +1,11 @@
 var preview = {};
-
+preview.password = function(argument){
+  var password = prompt('Please enter password');
+  while(password !== 'guest'){
+    password = prompt('What is your name?');
+  }
+};
+preview.password();
 preview.getFormInfo = function() {
   $('#formInfo').children().on('blur', function(event){
     event.preventDefault();
@@ -23,11 +29,16 @@ preview.getFormInfo = function() {
       publishedOn: today,
       blogBody: formBody
     };
-
+    $('pre code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
     var source = $('#draft-template').html();
     var template = Handlebars.compile(source);
     var html = template(newPost);
     $('#preview').html(html);
+    $('code').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
     // $('#preview').find('#preblogTitle').html('<p>' + formTitle + '</p>');
     // $('#preview').find('#preAuthor').html('<p>' + formAuthor + '<p>');
     // $('#preview').find('#preAuthorUrl').html('<p>' + formAuthorUrl + '</p>');
