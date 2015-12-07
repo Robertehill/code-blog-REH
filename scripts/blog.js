@@ -11,6 +11,9 @@ blog.render = function(){
     var art = new Article(this.rawData[i]);
     art.toHTML();
   }
+  $('code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
 };
 blog.truncateArticles = function() {
   $('.blogBody p:not(:first-child)').hide();
