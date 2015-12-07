@@ -1,11 +1,12 @@
 var preview = {};
-preview.password = function(argument){
-  var password = prompt('Please enter password');
-  while(password !== 'guest'){
-    password = prompt('What is your name?');
-  }
-};
-preview.password();
+// I know anyone can just look at the source code to find this password this was just for fun
+// preview.password = function(argument){
+//   var password = prompt('Please enter password');
+//   while(password !== 'guest'){
+//     password = prompt('What is your name?');
+//   }
+// };
+// preview.password();
 preview.getFormInfo = function() {
   $('#formInfo').children().on('blur', function(event){
     event.preventDefault();
@@ -39,18 +40,10 @@ preview.getFormInfo = function() {
     $('code').each(function(i, block) {
       hljs.highlightBlock(block);
     });
-    // $('#preview').find('#preblogTitle').html('<p>' + formTitle + '</p>');
-    // $('#preview').find('#preAuthor').html('<p>' + formAuthor + '<p>');
-    // $('#preview').find('#preAuthorUrl').html('<p>' + formAuthorUrl + '</p>');
-    // $('#preview').find('#preblogBody').html(marked(formBody));
-    // $('#preview').find('#prepub').html('<p>' + today + '</p>');
-    // $('#preview').find('#precat').html('<p>' + formCategory + '</p>');
     $('#submitButton').on('click', function(event) {
       event.preventDefault();
-
-
       var jsonPost = JSON.stringify(newPost);
-      console.log(jsonPost);
+      // console.log(jsonPost);
       $('#stringified').val(jsonPost);
 
     });
