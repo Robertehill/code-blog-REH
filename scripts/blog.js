@@ -11,6 +11,9 @@ blog.render = function(){
     var art = new Article(this.rawData[i]);
     art.toHTML();
   }
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
 };
 blog.truncateArticles = function() {
   $('.blogBody p:not(:first-child)').hide();
@@ -45,7 +48,9 @@ blog.showFilteredArts = function() {
     $('#authorList').find(':first-child').attr('selected', true);
     if(this.value === 'reset'){
       // console.log('reset filter');
-      $(document).ready(blog.render());
+      // this is dupeing articles
+      // $(document).ready(blog.render());
+      $('main').find('article').show();
     }
     else{
       // $('blogPost').find(data(this.value))
@@ -60,7 +65,9 @@ blog.showFilteredArts = function() {
     $('#categoryList').find(':first-child').attr('selected', true);
     if(this.value === 'reset'){
       // console.log('reset filter');
-      $(document).ready(blog.render());
+      // this is dupeing articles
+      $('main').find('article').show();
+      // $(document).ready(blog.render());
     }
     else{
       // console.log($('main').find('article:contains(' + this.value +')').hide());

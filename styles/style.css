@@ -5,23 +5,21 @@
     }
 }
 
-header{
+header {
   /*background-color: white;*/
   padding: 1em;
   margin: 1em;
 }
-
-footer{
+footer {
   padding: 1em;
   margin: 1em;
 }
-
-form{
+form {
   padding: 2em;
   margin: 1em;
 }
 
-main{
+main {
   clear: both;
 }
 
@@ -32,20 +30,20 @@ a:visited {
     color: black;
 }
 
-article{
+article {
   background-color: white;
   border: 1px solid;
   padding: 1em;
   margin: 1em;
 }
 
-body{
+body {
   background-color: #6B1F30;
   padding: 1em;
   margin: 1em;
 }
 
-img{
+img {
   max-width: 90%;
   /*width: 5em;*/
   max-height: 15%;
@@ -56,29 +54,42 @@ img{
   margin: 1em;
 }
 
-.blogTitle{
+.blogTitle {
   /*clear: left;*/
 }
 
-#aboutMeArticle{
+#aboutMeArticle {
   padding: 1em;
 }
-.bg-White{
+.bg-White {
   background-color: white;
 }
-.searchProps{
+.searchProps {
   visibility: hidden;
 }
 
-.display-none{
+.display-none {
   display: none;
 }
-.align-center{
+.align-center {
   text-align: center;
 
 }
 
-.inline{
+.inline {
   display: inline;
   padding: 1em;
+}
+#formBody {
+  width: 80%;
+  height: 15em;
+
+}
+#submitButton {
+  background-color: white;
+  color: black;
+}
+#stringified {
+  width: 90%;
+  max-width: 100%;
 }
