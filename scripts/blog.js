@@ -11,7 +11,7 @@ blog.render = function(){
     var art = new Article(this.rawData[i]);
     art.toHTML();
   }
-  $('code').each(function(i, block) {
+  $('pre code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
 };

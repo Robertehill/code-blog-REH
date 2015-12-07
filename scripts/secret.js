@@ -3,7 +3,7 @@ var preview = {};
 // preview.password = function(argument){
 //   var password = prompt('Please enter password');
 //   while(password !== 'guest'){
-//     password = prompt('What is your name?');
+//     password = prompt('Please enter password');
 //   }
 // };
 // preview.password();
@@ -30,9 +30,6 @@ preview.getFormInfo = function() {
       publishedOn: today,
       blogBody: formBody
     };
-    $('pre code').each(function(i, block) {
-      hljs.highlightBlock(block);
-    });
     var source = $('#draft-template').html();
     var template = Handlebars.compile(source);
     var html = template(newPost);
