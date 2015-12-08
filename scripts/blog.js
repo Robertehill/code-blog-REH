@@ -11,8 +11,18 @@ blog.render = function(){
     var art = new Article(this.rawData[i]);
     art.toHTML();
   }
-  $('pre code').each(function(i, block) {
+  $('code').each(function(i, block) {
     hljs.highlightBlock(block);
+  });
+};
+blog.compileTemplate = function(){
+  $.get('templates/article-template.handlebars', function(data){
+
+    Article.prototype.compiled = Handlebars.compile(data);
+
+  }).done(function() {
+    blog.render();
+    blog.truncateArticles();
   });
 };
 blog.truncateArticles = function() {
@@ -75,3 +85,8 @@ blog.showFilteredArts = function() {
     }
   });
 };
+$(function() {
+  blog.compileTemplate();
+  blog.truncateArticles();
+  blog.showFilteredArts();
+});
