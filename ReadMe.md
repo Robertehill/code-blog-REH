@@ -4,3 +4,4 @@ Attached functions to blog{}; to get them out of global scope per suggestions in
 Natalie helped with truncateArticles a little.
 used code from Natalie for reference on the filtering function and from stackoverflow.
 Jesse helped me to understand and use handlebars.
+Natalie helped me understand the Ajax requests for the template.
