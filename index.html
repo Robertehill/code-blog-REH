@@ -8,21 +8,11 @@
     <link rel = "stylesheet" type= "text/css" href = "vendor/skeleton.css"/>
     <link rel = "stylesheet" type= "text/css" href = "styles/style.css"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
-    <script id="post-template" type="text/x-post-template">
-      <article class="blogPosts" id="{{blogTitle}}">
-        <h2>{{blogTitle}}</h2>
-        <a href="{{{authorUrl}}}">by {{{author}}}</a>
-        <section>A post about {{this.category}}  that is  {{this.daysSincePost}}  days old</section>
-        <section class="blogBody">{{{blogBody}}}</section>
-        <button class="readOn" type="click">Read More</button>
-        <section class="searchProps">{{{author}}} {{{category}}}</section>
-      </article>
-    </script>
     <title>Robert's blog Site</title>
   </head>
   <body>
     <header class="bg-White align-center">
-      <h1>The Blah Blog!!!!</h1>
+      <h1 class="blog-title">The Blah Blog!!!!</h1>
       <nav>
         <ul>
           </li>
@@ -65,8 +55,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src ="scripts/util.js"></script>
+    <script type="text/javascript" src ="scripts/article.js"></script>
     <script type="text/javascript" src ="scripts/blog.js"></script>
     <script type="text/javascript" src ="scripts/blogArticles.js"></script>
-    <script type="text/javascript" src ="scripts/article.js"></script>
   </body>
 </html>

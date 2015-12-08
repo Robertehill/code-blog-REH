@@ -11,16 +11,8 @@ blog.render = function(){
     var art = new Article(this.rawData[i]);
     art.toHTML();
   }
-  $('pre code').each(function(i, block) {
+  $('code').each(function(i, block) {
     hljs.highlightBlock(block);
-  });
-};
-blog.truncateArticles = function() {
-  $('.blogBody p:not(:first-child)').hide();
-  $('main').on('click', '.readOn', function(event){
-    event.preventDefault();
-    $(this).parent().find('p').fadeIn();
-    $(this).hide();
   });
 };
 blog.makeFilterList = function(array, prop) {
@@ -47,31 +39,24 @@ blog.showFilteredArts = function() {
     console.log(this.value);
     $('#authorList').find(':first-child').attr('selected', true);
     if(this.value === 'reset'){
-      // console.log('reset filter');
-      // this is dupeing articles
-      // $(document).ready(blog.render());
       $('main').find('article').show();
     }
     else{
-      // $('blogPost').find(data(this.value))
-      // console.log($('blogPost').find(data(this.value)))''
-      // $('main').find('#'+)
+      //need to refactor this using data element.
       $('main').find('.searchProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
   $('#authorList').change(function() {
     $('main').find('article').show();
-    // console.log(this.value);
     $('#categoryList').find(':first-child').attr('selected', true);
     if(this.value === 'reset'){
-      // console.log('reset filter');
-      // this is dupeing articles
       $('main').find('article').show();
-      // $(document).ready(blog.render());
     }
     else{
-      // console.log($('main').find('article:contains(' + this.value +')').hide());
       $('main').find('.searchProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
 };
+$(function() {
+  util.compileTemplate();
+});

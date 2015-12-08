@@ -1,38 +1,23 @@
 var preview = {};
-// I know anyone can just look at the source code to find this password this was just for fun
-// preview.password = function(argument){
-//   var password = prompt('Please enter password');
-//   while(password !== 'guest'){
-//     password = prompt('Please enter password');
-//   }
-// };
-// preview.password();
 preview.getFormInfo = function() {
   $('#formInfo').children().on('blur', function(event){
     event.preventDefault();
-
-    var formTitle = $('#formTitle').val();
-    var formAuthor = $('#formAuthor').val();
-    var formAuthorUrl = $('#formAuthorUrl').val();
-    var formCategory = $('#formCategory').val();
-    var formBody = marked($('#formBody').val());
-
     var dateObj = new Date();
     var month =  dateObj.getUTCMonth() + 1;
     var day = dateObj.getUTCDate();
     var year = dateObj.getUTCFullYear();
     var today = year + '-' + month + '-' + day;
     var newPost = {
-      blogTitle: formTitle,
-      category: formCategory,
-      author: formAuthor,
-      authorUrl: formAuthorUrl,
+      blogTitle: $('#formTitle').val(),
+      category:  $('#formCategory').val(),
+      author: $('#formAuthor').val(),
+      authorUrl: $('#formAuthorUrl').val(),
       publishedOn: today,
-      blogBody: formBody
+      blogBody: marked($('#formBody').val())
     };
-    var source = $('#draft-template').html();
-    var template = Handlebars.compile(source);
-    var html = template(newPost);
+    var post = new Article(newPost);
+    // console.log(post);
+    var html = post.compiled(post);
     $('#preview').html(html);
     $('code').each(function(i, block) {
       hljs.highlightBlock(block);
@@ -40,12 +25,17 @@ preview.getFormInfo = function() {
     $('#submitButton').on('click', function(event) {
       event.preventDefault();
       var jsonPost = JSON.stringify(newPost);
-      // console.log(jsonPost);
       $('#stringified').val(jsonPost);
-
     });
   });
 };
+preview.compileTemplate = function(){
+  $.get('templates/article-template.handlebars', function(data){
+    Article.prototype.compiled = Handlebars.compile(data);
+  }).done(function() {
+    preview.getFormInfo();
+  });
+};
 $(function() {
-  preview.getFormInfo();
+  preview.compileTemplate();
 });
