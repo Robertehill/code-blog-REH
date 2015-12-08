@@ -3,10 +3,10 @@
         font-size: 2em;
         color: #6B1F30;
     }
+
     img {
       max-width: 90%;
-      /*width: 5em;*/
-      max-height: 15%;
+      max-height: 90%;
 
     }
 }

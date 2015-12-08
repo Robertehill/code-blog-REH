@@ -15,23 +15,6 @@ blog.render = function(){
     hljs.highlightBlock(block);
   });
 };
-blog.compileTemplate = function(){
-  $.get('templates/article-template.handlebars', function(data){
-    Article.prototype.compiled = Handlebars.compile(data);
-  }).done(function() {
-    util.toggleAboutMe();
-    blog.render();
-    blog.truncateArticles();
-  });
-};
-blog.truncateArticles = function() {
-  $('.blogBody p:not(:first-child)').hide();
-  $('main').on('click', '.readOn', function(event){
-    event.preventDefault();
-    $(this).parent().find('p').fadeIn();
-    $(this).hide();
-  });
-};
 blog.makeFilterList = function(array, prop) {
   for (var i = 0; i < this.rawData.length; i++){
     var x = this.rawData[i][prop];
@@ -56,36 +39,24 @@ blog.showFilteredArts = function() {
     console.log(this.value);
     $('#authorList').find(':first-child').attr('selected', true);
     if(this.value === 'reset'){
-      // console.log('reset filter');
-      // this is dupeing articles
-      // $(document).ready(blog.render());
       $('main').find('article').show();
     }
     else{
-      // $('blogPost').find(data(this.value))
-      // console.log($('blogPost').find(data(this.value)))''
-      // $('main').find('#'+)
+      //need to refactor this using data element.
       $('main').find('.searchProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
   $('#authorList').change(function() {
     $('main').find('article').show();
-    // console.log(this.value);
     $('#categoryList').find(':first-child').attr('selected', true);
     if(this.value === 'reset'){
-      // console.log('reset filter');
-      // this is dupeing articles
       $('main').find('article').show();
-      // $(document).ready(blog.render());
     }
     else{
-      // console.log($('main').find('article:contains(' + this.value +')').hide());
       $('main').find('.searchProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
 };
 $(function() {
-  blog.compileTemplate();
-  blog.truncateArticles();
-  blog.showFilteredArts();
+  util.compileTemplate();
 });
