@@ -16,7 +16,6 @@ preview.getFormInfo = function() {
       blogBody: marked($('#formBody').val())
     };
     var post = new Article(newPost);
-    // console.log(post);
     var html = post.compiled(post);
     $('#preview').html(html);
     $('code').each(function(i, block) {

@@ -28,7 +28,6 @@ blog.makeFilterList = function(array, prop) {
     $opt.attr('id', array[i]);
     $opt.text(array[i]);
     $('#'+prop +'List').append($opt);
-    // console.log(prop +'List');
   }
 };
 blog.showFilteredArts = function() {
@@ -42,7 +41,7 @@ blog.showFilteredArts = function() {
       $('main').find('article').show();
     }
     else{
-      //need to refactor this using data element.
+      //need to refactor this using data element it's macthing partial names.
       $('main').find('.searchProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
