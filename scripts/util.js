@@ -15,4 +15,3 @@ util.toggleAboutMe = function() {
     $('.blogPosts').fadeIn();
   });
 };
-util.toggleAboutMe();

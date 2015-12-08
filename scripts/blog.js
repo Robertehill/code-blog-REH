@@ -17,10 +17,9 @@ blog.render = function(){
 };
 blog.compileTemplate = function(){
   $.get('templates/article-template.handlebars', function(data){
-
     Article.prototype.compiled = Handlebars.compile(data);
-
   }).done(function() {
+    util.toggleAboutMe();
     blog.render();
     blog.truncateArticles();
   });
