@@ -15,10 +15,10 @@ stats.getNumOfProp = function(items, prop) {
   });
   return numOfProp.length;
 };
-stats.wordCountPerArtilce = [];
+stats.wordCountPerArticle = [];
 stats.countAll = function() {
   stats.rawData.forEach(function(article) {
-    stats.wordCountPerArtilce.push(stats.countWordsPerArticle(article));
+    stats.wordCountPerArticle.push(stats.countWordsPerArticle(article));
   });
 };
 // I think there is a better way to do this but it works for the moment...i think
@@ -28,18 +28,18 @@ stats.excludeList = function(segment) {
   && !segment.startsWith('class=')
   && !segment.startsWith('<')
   && !segment.startsWith('com/')
-  && !segment.startsWith('"http')
+  && !segment.startsWith('http')
   && segment !== ("");
 };
 stats.countWordsPerArticle = function(article) {
-  console.log(article.blogBody.split(/\s|\.|\>|\;|=/).filter(stats.excludeList));
+  console.log(article.blogBody.split(/\s|\.|\>|\;|,|-|"|\?/).filter(stats.excludeList));
   // my first regx
   //this should spilt the string at every blank space (\s) period (\.) Greater than (\>) semi colon (\;) and equal (=) use (|) to seperate the characters.
   //then filter it based on the excludeList
-  return article.blogBody.split(/\s|\.|\>|\;|=/).filter(stats.excludeList).length;
+  return article.blogBody.split(/\s|\.|\>|\;|=|,|-/).filter(stats.excludeList).length;
 };
 stats.countAll();
-stats.totalWords = _.reduce(stats.wordCountPerArtilce, function(total, n) {
+stats.totalWords = _.reduce(stats.wordCountPerArticle, function(total, n) {
   return total + n;
 });
 stats.avgWordsPerArt = function(array) {
@@ -47,7 +47,7 @@ stats.avgWordsPerArt = function(array) {
 };
 stats.avgWordLength = function(argument) {
   // here for future use
-}
+};
 stats.toHtml = function(text, value){
   $('#blog-stats-section').append(text + ' : ' + value + '<br />');
 };
