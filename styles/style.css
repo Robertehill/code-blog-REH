@@ -100,3 +100,7 @@ img {
   width: 90%;
   max-width: 100%;
 }
+#blog-stats-section{
+  padding: 1em;
+  margin: 1em;
+}
