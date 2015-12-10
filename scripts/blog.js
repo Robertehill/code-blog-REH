@@ -14,6 +14,7 @@ blog.render = function(){
     var art = new Article(this.articles[i]);
     art.toHTML();
   }
+  //this is a mess will have to fix at some point i'm sure
   blog.truncateArticles();
   blog.showFilteredArts();
   $('code').each(function(i, block) {
@@ -29,8 +30,10 @@ blog.updateFromJSON = function (data) {
   console.log('loading from json');
   data.forEach(function(item) {
     var article = new Article(item);
+    // loadIntoBlogObj()
     blog.articles.push(article);
-
+    // here for testing trying to figure this out
+    blog.insertArticleToDB(article);
     // Cache the article in DB
     // TODO: Trigger SQL here...
   });
@@ -47,11 +50,12 @@ blog.compileTemplate = function(){
   $.get('templates/article-template.handlebars', blog.getTemplate)
     .done(blog.templateLoaded);
 };
+// this is still not right need to refactor
 blog.truncateArticles = function() {
-  $('.blog-body p:not(:first-child)').hide();
+  $('.blog-body').hide();
   $('main').on('click', '.readOn', function(event){
     event.preventDefault();
-    $(this).parent().find('p').fadeIn();
+    $(this).parent().find('.blog-body').fadeIn();
     $(this).hide();
   });
 };
@@ -59,10 +63,12 @@ blog.loadIntoBlogObj = function(element) {
   blog.articles.push(new Article(element));
 }
 blog.insertArticleToDB = function(article) {
+   webDB.init();
+   webDB.setupTables();
   webDB.execute(
     [{
-      'sql': 'INSERT INTO articles (title, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
-      'data': [article.title, article.author, article.authorUrl, article.category, article.publishedOn, article.markdown]
+      'sql': 'INSERT INTO articles (blogTitle, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
+      'data': [article.blogTitle, article.author, article.authorUrl, article.category, article.publishedOn, article.markdown]
     }]
   );
 };

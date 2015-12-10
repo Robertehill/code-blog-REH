@@ -45,7 +45,7 @@ webDB.insertAllRecords = function (articles) {
 
 webDB.setupTables = function () {
   html5sql.process(
-    'CREATE TABLE IF NOT EXISTS articles (id INTEGER PRIMARY KEY, title VARCHAR(255) NOT NULL, author VARCHAR(255) NOT NULL, authorUrl VARCHAR (255), category VARCHAR(20), publishedOn DATETIME, markdown TEXT NOT NULL);',
+    'CREATE TABLE IF NOT EXISTS articles (id INTEGER PRIMARY KEY, blogTitle VARCHAR(255) NOT NULL, author VARCHAR(255) NOT NULL, authorUrl VARCHAR (255), category VARCHAR(20), publishedOn DATETIME, markdown TEXT NOT NULL);',
     function() {
       // on success
       console.log('Success setting up tables.');
@@ -58,12 +58,12 @@ webDB.insertRecord = function (a) {
   html5sql.process(
     [
       {
-        'sql': 'INSERT INTO articles (title, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
-        'data': [a.title, a.author, a.authorUrl, a.category, a.publishedOn, a.markdown],
+        'sql': 'INSERT INTO articles (blogTitle, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
+        'data': [a.blogTitle, a.author, a.authorUrl, a.category, a.publishedOn, a.markdown],
       }
     ],
     function () {
-      console.log('Success inserting record for ' + a.title);
+      console.log('Success inserting record for ' + a.blogTitle);
     }
   );
 };
