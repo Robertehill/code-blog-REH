@@ -3,18 +3,19 @@ blog.filtAut = [];
 blog.filtCat = [];
 blog.articles = [];
 blog.render = function(){
-
-  // here for testing. remove when JSON stuff is work, which might be sometime around.. never....
-  // blog.articles = blog.rawData;
+  util.toggleAboutMe();
   blog.articles.sort(function(a, b) {
     a = new Date(a.publishedOn);
     b = new Date(b.publishedOn);
     return a>b ? -1 : a<b ? 1 : 0;
   });
-  for (var i = 0; i < this.rawData.length; i++){
+  // will refactor later
+  for (var i = 0; i < this.articles.length; i++){
     var art = new Article(this.articles[i]);
     art.toHTML();
   }
+  blog.truncateArticles();
+  blog.showFilteredArts();
   $('code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
@@ -23,15 +24,11 @@ blog.fetchJSON = function() {
   $.getJSON('data/hackerIpsum.json', blog.updateFromJSON);
 };
 
-// Drop old records and insert new into db and blog object:
+//taken from demo
 blog.updateFromJSON = function (data) {
-  // Iterate over new article JSON:
   console.log('loading from json');
   data.forEach(function(item) {
-    // Instantiate an article based on item from JSON:
     var article = new Article(item);
-
-    // Add the article to blog.articles
     blog.articles.push(article);
 
     // Cache the article in DB
@@ -45,11 +42,6 @@ blog.getTemplate = function (data) {
 };
 blog.templateLoaded = function() {
   blog.fetchJSON();
-  util.toggleAboutMe();
-
-  blog.truncateArticles();
-  blog.showFilteredArts();
-
 };
 blog.compileTemplate = function(){
   $.get('templates/article-template.handlebars', blog.getTemplate)
@@ -75,8 +67,8 @@ blog.insertArticleToDB = function(article) {
   );
 };
 blog.makeFilterList = function(array, prop) {
-  for (var i = 0; i < this.rawData.length; i++){
-    var x = this.rawData[i][prop];
+  for (var i = 0; i < this.articles.length; i++){
+    var x = this.articles[i][prop];
     if(array.indexOf(x) === -1){
       array.push(x);
     }
