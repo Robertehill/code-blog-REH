@@ -32,11 +32,11 @@ stats.excludeList = function(segment) {
   && segment !== ("");
 };
 stats.countWordsPerArticle = function(article) {
-  console.log(article.blogBody.split(/\s|\.|\>|\;|,|-|"|\?/).filter(stats.excludeList));
+  console.log(article.markdown.split(/\s|\.|\>|\;|,|-|"|\?/).filter(stats.excludeList));
   // my first regx
   //this should spilt the string at every blank space (\s) period (\.) Greater than (\>) semi colon (\;) and equal (=) use (|) to seperate the characters.
   //then filter it based on the excludeList
-  return article.blogBody.split(/\s|\.|\>|\;|=|,|-/).filter(stats.excludeList).length;
+  return article.markdown.split(/\s|\.|\>|\;|=|,|-/).filter(stats.excludeList).length;
 };
 stats.countAll();
 stats.totalWords = _.reduce(stats.wordCountPerArticle, function(total, n) {

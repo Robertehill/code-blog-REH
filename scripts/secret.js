@@ -13,7 +13,7 @@ preview.getFormInfo = function() {
       author: $('#formAuthor').val(),
       authorUrl: $('#formAuthorUrl').val(),
       publishedOn: today,
-      blogBody: marked($('#formBody').val())
+      markdown: marked($('#formBody').val())
     };
     var post = new Article(newPost);
     var html = post.compiled(post);
