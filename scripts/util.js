@@ -13,24 +13,3 @@ util.toggleAboutMe = function() {
     $('.blogPosts').fadeIn();
   });
 };
-util.getTemplate = function (data) {
-  Article.prototype.compiled = Handlebars.compile(data);
-};
-util.templateLoaded = function() {
-  util.toggleAboutMe();
-  blog.render();
-  util.truncateArticles();
-  blog.showFilteredArts();
-};
-util.compileTemplate = function(){
-  $.get('templates/article-template.handlebars', util.getTemplate)
-    .done(util.templateLoaded);
-};
-util.truncateArticles = function() {
-  $('.blogBody p:not(:first-child)').hide();
-  $('main').on('click', '.readOn', function(event){
-    event.preventDefault();
-    $(this).parent().find('p').fadeIn();
-    $(this).hide();
-  });
-};

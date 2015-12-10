@@ -37,4 +37,5 @@ preview.compileTemplate = function(){
 };
 $(function() {
   preview.compileTemplate();
+  util.saveData();
 });

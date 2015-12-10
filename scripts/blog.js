@@ -1,18 +1,43 @@
 var blog = {};
 blog.filtAut = [];
-blog.filtCat =[];
+blog.filtCat = [];
+blog.article = [];
 blog.render = function(){
-  blog.rawData.sort(function(a, b) {
+  // here for testing. remove when JSON stuff is work, which might be sometime around.. never....
+  blog.article = blog.rawData;
+  blog.article.sort(function(a, b) {
     a = new Date(a.publishedOn);
     b = new Date(b.publishedOn);
     return a>b ? -1 : a<b ? 1 : 0;
   });
   for (var i = 0; i < this.rawData.length; i++){
-    var art = new Article(this.rawData[i]);
+    var art = new Article(this.article[i]);
     art.toHTML();
   }
   $('code').each(function(i, block) {
     hljs.highlightBlock(block);
+  });
+};
+blog.getTemplate = function (data) {
+  Article.prototype.compiled = Handlebars.compile(data);
+};
+blog.templateLoaded = function() {
+  util.toggleAboutMe();
+  blog.render();
+  blog.truncateArticles();
+  blog.showFilteredArts();
+  
+};
+blog.compileTemplate = function(){
+  $.get('templates/article-template.handlebars', blog.getTemplate)
+    .done(blog.templateLoaded);
+};
+blog.truncateArticles = function() {
+  $('.blogBody p:not(:first-child)').hide();
+  $('main').on('click', '.readOn', function(event){
+    event.preventDefault();
+    $(this).parent().find('p').fadeIn();
+    $(this).hide();
   });
 };
 blog.makeFilterList = function(array, prop) {
@@ -57,5 +82,5 @@ blog.showFilteredArts = function() {
   });
 };
 $(function() {
-  util.compileTemplate();
+  blog.compileTemplate();
 });
