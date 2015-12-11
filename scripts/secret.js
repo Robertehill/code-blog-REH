@@ -25,6 +25,7 @@ preview.getFormInfo = function() {
       event.preventDefault();
       var jsonPost = JSON.stringify(newPost);
       $('#stringified').val(jsonPost);
+      //post.updateRecord();//here for future use.
     });
   });
 };
@@ -36,6 +37,8 @@ preview.compileTemplate = function(){
   });
 };
 $(function() {
+  webDB.init();
+  webDB.setupTables();
   preview.compileTemplate();
-  
+
 });

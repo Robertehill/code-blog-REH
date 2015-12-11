@@ -12,6 +12,7 @@
 //     return Math.round(Math.abs((postDate.getTime()-today.getTime())/(oneDay)));
 //   };
 // };
+/////////taken from demo/////
 function Article (opts) {
   Object.keys(opts).forEach(function(e, index, keys) {
     this[e] = opts[e];
@@ -19,9 +20,21 @@ function Article (opts) {
 
   this.markdown = marked(this.markdown);
 }
+//////////////////////////////
+Article.prototype.daysSincePost = function () {
+  var today = new Date();
+  var oneDay = 24*60*60*1000;
+  var postDate = new Date(this.publishedOn);
+  return Math.round(Math.abs((postDate.getTime()-today.getTime())/(oneDay)));
+};
 Article.prototype.toHTML = function(){
   var html = this.compiled(this);
   $('main').append(html);
+};
+Article.prototype.updateRecord = function(callback) {
+  webDB.execute(
+
+  );
 };
 /////////taken from demo, here for easy reference//////////////////////////
 // Article.prototype.updateRecord = function(callback) {

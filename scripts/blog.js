@@ -5,12 +5,14 @@ blog.articles = [];
 blog.render = function(){
   console.log('start render');
   util.toggleAboutMe();
-  blog.articles.sort(function(a, b) {
-    a = new Date(a.publishedOn);
-    b = new Date(b.publishedOn);
-    return a>b ? -1 : a<b ? 1 : 0;
-  });
-  // will refactor later
+  blog.sortArts();
+  // blog.articles.sort(function(a, b) {
+  //   a = new Date(a.publishedOn);
+  //   b = new Date(b.publishedOn);
+  //   return a>b ? -1 : a<b ? 1 : 0;
+  // });
+
+  // will refactor later using forEach
   for (var i = 0; i < this.articles.length; i++){
     var art = new Article(this.articles[i]);
     art.toHTML();
@@ -21,13 +23,19 @@ blog.render = function(){
   blog.truncateArticles();
   blog.showFilteredArts();
 };
-//taken from demo
+////////////////taken from demo//////////////////
+blog.sortArts = function () {
+  blog.articles.sort(function(a,b){
+    return a.publishedOn < b.publishedOn;
+  });
+};
 blog.fetchArticles = function(data, message, xhr) {
   var eTag = xhr.getResponseHeader('eTag');
+
   if (!localStorage.articlesEtag || localStorage.articlesEtag != eTag) {
     console.log('cache miss!');
     localStorage.articlesEtag = eTag;
-    // Remove all prior articles from the DB, and from blog:
+    //clear and reload all data.
     blog.articles = [];
     webDB.execute(
       'DELETE FROM articles;',
@@ -53,19 +61,10 @@ blog.updateFromJSON = function (data) {
   blog.initArticles();
 
 };
-
-blog.getTemplate = function (data) {
-  console.log('getting template');
-  Article.prototype.compiled = Handlebars.compile(data);
-};
-blog.compileTemplate = function(){
-  console.log('compile template');
-  $.get('templates/article-template.handlebars', blog.getTemplate)
-    .done(blog.fetchArticles);
-};
 blog.fetchFromDB = function(callback) {
   callback = callback || function() {};
   console.log('fetch from db');
+  webDB.setupTables();
   // Fetch all articles from db.
   webDB.execute(
     //  Add SQL here...
@@ -84,7 +83,6 @@ blog.initArticles = function() {
   console.log('initArticles');
   blog.render();
 };
-
 blog.insertArticleToDB = function(article) {
   console.log('insert to db');
   webDB.execute(
@@ -94,12 +92,27 @@ blog.insertArticleToDB = function(article) {
     }]
   );
 };
+/////////////////////////////////////////////////////////////////
+blog.getTemplate = function (data) {
+  console.log('getting template');
+  Article.prototype.compiled = Handlebars.compile(data);
+};
+blog.compileTemplate = function(){
+  console.log('compile template');
+  $.get('templates/article-template.handlebars', blog.getTemplate)
+    .done(blog.fetchArticles);
+};
+
+
+
 blog.truncateArticles = function() {
   console.log('truncate');
-  $('.blog-body').hide();
+  // $('.blog-body').hide();
+  $('.blog-body').children(':nth-child(n+5)').hide();
   $('main').on('click', '.readOn', function(event){
     event.preventDefault();
-    $(this).parent().find('.blog-body').fadeIn();
+    $(this).prev('.blog-body').children().fadeIn();
+    // $(this).parent().find('.blog-body').fadeIn();
     $(this).hide();
   });
 };
@@ -140,6 +153,7 @@ blog.showFilteredArts = function() {
       $('main').find('article').show();
     }
     else{
+      //need to refactor this using data element it's macthing partial names.
       $('main').find('.searchProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
