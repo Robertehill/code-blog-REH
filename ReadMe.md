@@ -7,4 +7,4 @@ Jesse helped me to understand and use handlebars.
 Natalie helped me understand the Ajax requests for the template.
 Pulled and adapted snippet from stackoverflow to get numOfAuthors working;
 looked at Natalie's repo to figure out total words.
-Used class-08 demo to help figure out JSON
+Used class-08 demo to help figure out JSON 

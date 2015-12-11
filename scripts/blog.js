@@ -3,6 +3,7 @@ blog.filtAut = [];
 blog.filtCat = [];
 blog.articles = [];
 blog.render = function(){
+  console.log('start render');
   util.toggleAboutMe();
   blog.articles.sort(function(a, b) {
     a = new Date(a.publishedOn);
@@ -14,63 +15,93 @@ blog.render = function(){
     var art = new Article(this.articles[i]);
     art.toHTML();
   }
-  //this is a mess will have to fix at some point i'm sure
-  blog.truncateArticles();
-  blog.showFilteredArts();
   $('code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
+  blog.truncateArticles();
+  blog.showFilteredArts();
+};
+//taken from demo
+blog.fetchArticles = function(data, message, xhr) {
+  var eTag = xhr.getResponseHeader('eTag');
+  if (!localStorage.articlesEtag || localStorage.articlesEtag != eTag) {
+    console.log('cache miss!');
+    localStorage.articlesEtag = eTag;
+    // Remove all prior articles from the DB, and from blog:
+    blog.articles = [];
+    webDB.execute(
+      'DELETE FROM articles;',
+       blog.fetchJSON);
+  } else {
+    console.log('cache hit!');
+    blog.fetchFromDB();
+  }
 };
 blog.fetchJSON = function() {
+  console.log('fetchJson');
   $.getJSON('data/hackerIpsum.json', blog.updateFromJSON);
 };
 
-//taken from demo
 blog.updateFromJSON = function (data) {
   console.log('loading from json');
   data.forEach(function(item) {
     var article = new Article(item);
-    // loadIntoBlogObj()
     blog.articles.push(article);
-    // here for testing trying to figure this out
-    blog.insertArticleToDB(article);
     // Cache the article in DB
-    // TODO: Trigger SQL here...
+    blog.insertArticleToDB(article);
   });
-  blog.render();
+  blog.initArticles();
+
 };
 
 blog.getTemplate = function (data) {
+  console.log('getting template');
   Article.prototype.compiled = Handlebars.compile(data);
 };
-blog.templateLoaded = function() {
-  blog.fetchJSON();
-};
 blog.compileTemplate = function(){
+  console.log('compile template');
   $.get('templates/article-template.handlebars', blog.getTemplate)
-    .done(blog.templateLoaded);
+    .done(blog.fetchArticles);
 };
-// this is still not right need to refactor
-blog.truncateArticles = function() {
-  $('.blog-body').hide();
-  $('main').on('click', '.readOn', function(event){
-    event.preventDefault();
-    $(this).parent().find('.blog-body').fadeIn();
-    $(this).hide();
-  });
+blog.fetchFromDB = function(callback) {
+  callback = callback || function() {};
+  console.log('fetch from db');
+  // Fetch all articles from db.
+  webDB.execute(
+    //  Add SQL here...
+    'SELECT * FROM articles ORDER BY publishedOn DESC;',
+    function (resultArray) {
+      resultArray.forEach(function(ele) {
+        blog.articles.push(new Article(ele));
+      });
+
+      blog.initArticles();
+      callback();
+    }
+  );
 };
-blog.loadIntoBlogObj = function(element) {
-  blog.articles.push(new Article(element));
-}
+blog.initArticles = function() {
+  console.log('initArticles');
+  blog.render();
+};
+
 blog.insertArticleToDB = function(article) {
-   webDB.init();
-   webDB.setupTables();
+  console.log('insert to db');
   webDB.execute(
     [{
       'sql': 'INSERT INTO articles (blogTitle, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
       'data': [article.blogTitle, article.author, article.authorUrl, article.category, article.publishedOn, article.markdown]
     }]
   );
+};
+blog.truncateArticles = function() {
+  console.log('truncate');
+  $('.blog-body').hide();
+  $('main').on('click', '.readOn', function(event){
+    event.preventDefault();
+    $(this).parent().find('.blog-body').fadeIn();
+    $(this).hide();
+  });
 };
 blog.makeFilterList = function(array, prop) {
   for (var i = 0; i < this.articles.length; i++){
@@ -114,5 +145,8 @@ blog.showFilteredArts = function() {
   });
 };
 $(function() {
+  webDB.init();
+  console.log('document ready');
   blog.compileTemplate();
+
 });
