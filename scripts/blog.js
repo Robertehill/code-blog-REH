@@ -14,7 +14,7 @@ blog.render = function(){
     var art = new Article(this.articles[i]);
     art.toHTML();
   }
-  //this is a mess will have to fix at some point i'm sure
+  //this is a mess will have to fix it at some point i'm sure
   blog.truncateArticles();
   blog.showFilteredArts();
   $('code').each(function(i, block) {
@@ -24,25 +24,65 @@ blog.render = function(){
 blog.fetchJSON = function() {
   $.getJSON('data/hackerIpsum.json', blog.updateFromJSON);
 };
+blog.loadArticles = function() {
+  $.get('templates/article-template.handlebars', function(data, message, xhr) {
+    Article.prototype.template = Handlebars.compile(data);
+    $.ajax({
+      type: 'HEAD',
+      url: 'data/hackerIpsum.json',
+      success: blog.fetchArticles
+    });
+  });
+};
+blog.fetchArticles = function(data, message, xhr) {
+  var eTag = xhr.getResponseHeader('eTag');
+  if (!localStorage.articlesEtag || localStorage.articlesEtag != eTag) {
+    console.log('cache miss!');
+    localStorage.articlesEtag = eTag;
 
+    // Remove all prior articles from the DB, and from blog:
+    blog.articles = [];
+    webDB.execute(
+      'DELETE FROM articles;',
+       blog.fetchJSON);
+  } else {
+    console.log('cache hit!');
+    blog.fetchFromDB();
+  }
+  // blog.render();
+};
 //taken from demo
+blog.fetchFromDB = function(callback) {
+  callback = callback || function() {};
+
+  // Fetch all articles from db.
+  webDB.execute(
+    //  Add SQL here...
+    'SELECT * FROM articles ORDER BY publishedOn DESC;',
+    function (resultArray) {
+      resultArray.forEach(function(ele) {
+        blog.articles.push(new Article(ele));
+      });
+      // blog.render();
+      blog.initArticles();
+      callback();
+    }
+  );
+};
 blog.updateFromJSON = function (data) {
   console.log('loading from json');
   data.forEach(function(item) {
     var article = new Article(item);
-    // loadIntoBlogObj()
     blog.articles.push(article);
-    // here for testing trying to figure this out
-    blog.insertArticleToDB(article);
     // Cache the article in DB
-    // TODO: Trigger SQL here...
+    article.insertRecord();
   });
   blog.render();
 };
 
-blog.getTemplate = function (data) {
-  Article.prototype.compiled = Handlebars.compile(data);
-};
+// blog.getTemplate = function (data) {
+//   Article.prototype.compiled = Handlebars.compile(data);
+// };
 blog.templateLoaded = function() {
   blog.fetchJSON();
 };
@@ -50,7 +90,7 @@ blog.compileTemplate = function(){
   $.get('templates/article-template.handlebars', blog.getTemplate)
     .done(blog.templateLoaded);
 };
-// this is still not right need to refactor
+// this is still not right will fix at some point...
 blog.truncateArticles = function() {
   $('.blog-body').hide();
   $('main').on('click', '.readOn', function(event){
@@ -58,19 +98,6 @@ blog.truncateArticles = function() {
     $(this).parent().find('.blog-body').fadeIn();
     $(this).hide();
   });
-};
-blog.loadIntoBlogObj = function(element) {
-  blog.articles.push(new Article(element));
-}
-blog.insertArticleToDB = function(article) {
-   webDB.init();
-   webDB.setupTables();
-  webDB.execute(
-    [{
-      'sql': 'INSERT INTO articles (blogTitle, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
-      'data': [article.blogTitle, article.author, article.authorUrl, article.category, article.publishedOn, article.markdown]
-    }]
-  );
 };
 blog.makeFilterList = function(array, prop) {
   for (var i = 0; i < this.articles.length; i++){
@@ -112,6 +139,14 @@ blog.showFilteredArts = function() {
       $('main').find('.searchProps:not(:contains(' + this.value +'))').parent().hide();
     }
   });
+};
+blog.initArticles = function() {
+  // blog.sortArticles();
+
+  // Only render if the current page has somewhere to put all the articles
+  if ($('#articles').length) {
+    blog.render();
+  }
 };
 $(function() {
   blog.compileTemplate();
