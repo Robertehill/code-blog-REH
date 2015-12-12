@@ -33,7 +33,11 @@ Article.prototype.toHTML = function(){
 };
 Article.prototype.updateRecord = function(callback) {
   webDB.execute(
-
+    [{
+      // target id
+      'sql': 'INSERT INTO articles (blogTitle, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
+      'data': [article.blogTitle, article.author, article.authorUrl, article.category, article.publishedOn, article.markdown]
+    }]
   );
 };
 /////////taken from demo, here for easy reference//////////////////////////

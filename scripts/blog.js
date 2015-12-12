@@ -5,13 +5,7 @@ blog.articles = [];
 blog.render = function(){
   console.log('start render');
   util.toggleAboutMe();
-  blog.sortArts();
-  // blog.articles.sort(function(a, b) {
-  //   a = new Date(a.publishedOn);
-  //   b = new Date(b.publishedOn);
-  //   return a>b ? -1 : a<b ? 1 : 0;
-  // });
-
+  // blog.sortArts();// SQl does this for me know but loading from JSON in still unsorted,
   // will refactor later using forEach
   for (var i = 0; i < this.articles.length; i++){
     var art = new Article(this.articles[i]);
@@ -24,11 +18,12 @@ blog.render = function(){
   blog.showFilteredArts();
 };
 ////////////////taken from demo//////////////////
-blog.sortArts = function () {
-  blog.articles.sort(function(a,b){
-    return a.publishedOn < b.publishedOn;
-  });
-};
+// not needed anymore
+// blog.sortArts = function () {
+//   blog.articles.sort(function(a,b){
+//     return a.publishedOn < b.publishedOn;
+//   });
+// };
 blog.fetchArticles = function(data, message, xhr) {
   var eTag = xhr.getResponseHeader('eTag');
 
@@ -54,6 +49,7 @@ blog.updateFromJSON = function (data) {
   console.log('loading from json');
   data.forEach(function(item) {
     var article = new Article(item);
+    //should and a sort by date function here.
     blog.articles.push(article);
     // Cache the article in DB
     blog.insertArticleToDB(article);
@@ -64,10 +60,10 @@ blog.updateFromJSON = function (data) {
 blog.fetchFromDB = function(callback) {
   callback = callback || function() {};
   console.log('fetch from db');
-  webDB.setupTables();
+
   // Fetch all articles from db.
   webDB.execute(
-    //  Add SQL here...
+    //  Add SQL here.../////this only sorts when put into DB, loading from JSON is not sorted
     'SELECT * FROM articles ORDER BY publishedOn DESC;',
     function (resultArray) {
       resultArray.forEach(function(ele) {
@@ -85,6 +81,7 @@ blog.initArticles = function() {
 };
 blog.insertArticleToDB = function(article) {
   console.log('insert to db');
+  webDB.setupTables();
   webDB.execute(
     [{
       'sql': 'INSERT INTO articles (blogTitle, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
@@ -103,11 +100,10 @@ blog.compileTemplate = function(){
     .done(blog.fetchArticles);
 };
 
-
-
 blog.truncateArticles = function() {
   console.log('truncate');
   // $('.blog-body').hide();
+  ///taken from demo and adapted to fit my code base.
   $('.blog-body').children(':nth-child(n+5)').hide();
   $('main').on('click', '.readOn', function(event){
     event.preventDefault();
@@ -117,6 +113,7 @@ blog.truncateArticles = function() {
   });
 };
 blog.makeFilterList = function(array, prop) {
+  // need to refactor to a function or use DB.
   for (var i = 0; i < this.articles.length; i++){
     var x = this.articles[i][prop];
     if(array.indexOf(x) === -1){
@@ -159,8 +156,7 @@ blog.showFilteredArts = function() {
   });
 };
 $(function() {
-  webDB.init();
   console.log('document ready');
+  webDB.init();
   blog.compileTemplate();
-
 });
