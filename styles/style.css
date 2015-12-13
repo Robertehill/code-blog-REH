@@ -92,6 +92,9 @@ img {
   height: 15em;
 
 }
+.blog-body h2{
+  font-size: 1.5em;
+}
 #submitButton {
   background-color: white;
   color: black;

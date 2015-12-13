@@ -31,7 +31,7 @@ Article.prototype.daysSincePost = function () {
   }
   else{
     var futureDays = Math.round(Math.abs((today.getTime()-postDate.getTime())/(oneDay)));
-    return ' was somehow posted '+ futureDays + ' from now!' ;
+    return ' was somehow posted '+ futureDays + ' from now?!' ;
   }
 };
 Article.prototype.toHTML = function(){
@@ -41,11 +41,30 @@ Article.prototype.toHTML = function(){
 Article.prototype.updateRecord = function(callback) {
   webDB.execute(
     [{
-      // need to target id //does this replace the row or will I need to Delete the row first?
-      'sql': 'INSERT INTO articles (blogTitle, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
-      'data': [article.blogTitle, article.author, article.authorUrl, article.category, article.publishedOn, article.markdown]
+      'sql': 'UPDATE articles SET blogTitle=? author=? authorUrl=? category=? publishedOn=? markdown=? WHERE id=?',
+      'data': [this.blogTitle, this.author, this.authorUrl, this.category, this,publishedOn, this.markdown]
     }]
   );
+  callback;
+};
+Article.prototype.deleteRecord = function(callback) {
+  // Delete article record in database
+  webDB.execute(
+    [{
+      'sql': 'DELETE FROM articles WHERE id=this.id'
+
+    }]
+  );
+  callback;
+};
+Article.prototype.truncateTable = function(callback) {
+  // Delete all records from given table.
+  webDB.execute(
+    [{
+      'sql': 'DROP TABLE articles'
+    }]
+  );
+  callback;
 };
 /////////taken from demo, here for easy reference//////////////////////////
 // Article.prototype.updateRecord = function(callback) {

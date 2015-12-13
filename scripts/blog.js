@@ -4,14 +4,13 @@ blog.filtCat = [];
 blog.articles = [];
 blog.render = function(){
   console.log('start render');
-  blog.sortArts();// SQl does this for me know but loading from JSON in still unsorted,
-
-  // will refactor later using forEach
+  blog.sortArts();// SQl does this for me know but loading from JSON is still unsorted,
+  // should refactor later using forEach
   for (var i = 0; i < this.articles.length; i++){
     var art = new Article(this.articles[i]);
     art.toHTML();
   }
-
+  //removed pre becuase it would not highlight code tags without the pre tags,
   $('code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
@@ -19,8 +18,7 @@ blog.render = function(){
   util.truncateArticles();
   blog.showFilteredArts();
 };
-////////////////taken from demo//////////////////
-// not needed anymore///sorting not working
+// needed to sort articles when loading from JSON
 blog.sortArts = function () {
   blog.articles.sort(function(a,b){
     blog.articles.sort(function(a, b) {
@@ -30,9 +28,9 @@ blog.sortArts = function () {
     });
   });
 };
+////////////////taken from demo//////////////////
 blog.fetchArticles = function(data, message, xhr) {
   var eTag = xhr.getResponseHeader('eTag');
-
   if (!localStorage.articlesEtag || localStorage.articlesEtag != eTag) {
     console.log('cache miss!');
     localStorage.articlesEtag = eTag;
@@ -41,7 +39,8 @@ blog.fetchArticles = function(data, message, xhr) {
     webDB.execute(
       'DELETE FROM articles;',
        blog.fetchJSON);
-  } else {
+  }
+  else {
     console.log('cache hit!');
     blog.fetchFromDB();
   }
@@ -56,24 +55,21 @@ blog.updateFromJSON = function (data) {
   blog.initArticles();
 };
 blog.fetchJSON = function() {
-  console.log('fetchJson');//stoping here for some reason it was working no idea when/why it stoped
+  console.log('fetchJson');
   $.getJSON('data/hackerIpsum.json',blog.updateFromJSON);
 };
 blog.fetchFromDB = function(callback) {
   callback = callback || function() {};
   console.log('fetch from db');
-  // webDB.setupTables();
+  // webDB.setupTables();// not sure where the best place for this is.
   // Fetch all articles from db.
   webDB.execute(
     //this only sorts when put into DB, loading from JSON is not sorted
-    //not sorting right
-
     'SELECT * FROM articles ORDER BY publishedOn DESC;',
     function (resultArray) {
       resultArray.forEach(function(ele) {
         blog.articles.push(new Article(ele));
       });
-
       blog.initArticles();
       callback();
     }
@@ -85,7 +81,6 @@ blog.initArticles = function() {
 };
 blog.insertArticleToDB = function(article) {
   console.log('insert to db');
-  // webDB.setupTables();
   webDB.execute(
     [{
       'sql': 'INSERT INTO articles (blogTitle, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
@@ -97,11 +92,13 @@ blog.insertArticleToDB = function(article) {
 blog.getTemplate = function (data) {
   console.log('getting template');
   Article.prototype.compiled = Handlebars.compile(data);
+  ////taken from demo/////////////
   $.ajax({
     type: 'HEAD',
     url: 'data/hackerIpsum.json',
     success: blog.fetchArticles
   });
+  ////////////////////////////////
 };
 blog.compileTemplate = function(){
   console.log('compile template');

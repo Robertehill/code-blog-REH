@@ -2,24 +2,18 @@ var preview = {};
 preview.getFormInfo = function() {
   $('#formInfo').children().on('blur', function(event){
     event.preventDefault();
-    var dateObj = new Date();
-    var month =  dateObj.getUTCMonth() + 1;
-    var day = dateObj.getUTCDate();
-    var year = dateObj.getUTCFullYear();
-    var today = year + '-' + month + '-' + day;
     var newPost = {
       blogTitle: $('#formTitle').val(),
       category:  $('#formCategory').val(),
       author: $('#formAuthor').val(),
       authorUrl: $('#formAuthorUrl').val(),
-      publishedOn: today,
+      publishedOn: util.getToday(),
       markdown: marked($('#formBody').val())
     };
     var post = new Article(newPost);
-    var html = post.compiled(post);
-
-    $('#preview').html(html);
-
+    // var html = post.compiled(post);
+    $('#preview').html(post.compiled(post));
+    //removed pre becuase it would not highlight code tags without the pre tags
     $('code').each(function(i, block) {
       hljs.highlightBlock(block);
     });
@@ -42,5 +36,4 @@ $(function() {
   webDB.init();
   webDB.setupTables();
   preview.compileTemplate();
-
 });

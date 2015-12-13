@@ -1,5 +1,5 @@
 var util = {};
-//not sure this belongs here 
+//not sure this belongs here
 util.toggleAboutMe = function() {
   $('header').on('click', '#showAboutMe', function(event){
     event.preventDefault();
@@ -25,4 +25,11 @@ util.truncateArticles = function() {
     // $(this).parent().find('.blog-body').fadeIn();
     $(this).hide();
   });
+};
+util.getToday = function() {
+  var dateObj = new Date();
+  var month =  dateObj.getUTCMonth() + 1;
+  var day = dateObj.getUTCDate();
+  var year = dateObj.getUTCFullYear();
+  return year + '-' + month + '-' + day;
 };
