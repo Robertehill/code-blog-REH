@@ -5,25 +5,31 @@ blog.articles = [];
 blog.render = function(){
   console.log('start render');
   util.toggleAboutMe();
-  // blog.sortArts();// SQl does this for me know but loading from JSON in still unsorted,
+  blog.sortArts();// SQl does this for me know but loading from JSON in still unsorted,
+
   // will refactor later using forEach
   for (var i = 0; i < this.articles.length; i++){
     var art = new Article(this.articles[i]);
     art.toHTML();
   }
+
   $('code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
-  blog.truncateArticles();
+  util.truncateArticles();
   blog.showFilteredArts();
 };
 ////////////////taken from demo//////////////////
-// not needed anymore
-// blog.sortArts = function () {
-//   blog.articles.sort(function(a,b){
-//     return a.publishedOn < b.publishedOn;
-//   });
-// };
+// not needed anymore///sorting not working
+blog.sortArts = function () {
+  blog.articles.sort(function(a,b){
+    blog.articles.sort(function(a, b) {
+      a = new Date(a.publishedOn);
+      b = new Date(b.publishedOn);
+      return a>b ? -1 : a<b ? 1 : 0;
+    });
+  });
+};
 blog.fetchArticles = function(data, message, xhr) {
   var eTag = xhr.getResponseHeader('eTag');
 
@@ -40,30 +46,33 @@ blog.fetchArticles = function(data, message, xhr) {
     blog.fetchFromDB();
   }
 };
-blog.fetchJSON = function() {
-  console.log('fetchJson');
-  $.getJSON('data/hackerIpsum.json', blog.updateFromJSON);
-};
-
 blog.updateFromJSON = function (data) {
   console.log('loading from json');
   data.forEach(function(item) {
     var article = new Article(item);
-    //should and a sort by date function here.
+    // a sort by date function here.
     blog.articles.push(article);
+    blog.sortArts();
     // Cache the article in DB
     blog.insertArticleToDB(article);
   });
   blog.initArticles();
 
 };
+blog.fetchJSON = function() {
+  console.log('fetchJson');//stoping here for some reason it was working no idea when/why it stoped
+  $.getJSON('data/hackerIpsum.json',blog.updateFromJSON);
+};
+
 blog.fetchFromDB = function(callback) {
   callback = callback || function() {};
   console.log('fetch from db');
-
+  // webDB.setupTables();
   // Fetch all articles from db.
   webDB.execute(
-    //  Add SQL here.../////this only sorts when put into DB, loading from JSON is not sorted
+    //this only sorts when put into DB, loading from JSON is not sorted
+    //not sorting right
+
     'SELECT * FROM articles ORDER BY publishedOn DESC;',
     function (resultArray) {
       resultArray.forEach(function(ele) {
@@ -81,7 +90,7 @@ blog.initArticles = function() {
 };
 blog.insertArticleToDB = function(article) {
   console.log('insert to db');
-  webDB.setupTables();
+  // webDB.setupTables();
   webDB.execute(
     [{
       'sql': 'INSERT INTO articles (blogTitle, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
@@ -93,25 +102,23 @@ blog.insertArticleToDB = function(article) {
 blog.getTemplate = function (data) {
   console.log('getting template');
   Article.prototype.compiled = Handlebars.compile(data);
+  $.ajax({
+    type: 'HEAD',
+    url: 'data/hackerIpsum.json',
+    success: blog.fetchArticles
+
+  });
+
+
 };
 blog.compileTemplate = function(){
   console.log('compile template');
-  $.get('templates/article-template.handlebars', blog.getTemplate)
-    .done(blog.fetchArticles);
+  $.get('templates/article-template.handlebars', blog.getTemplate);
+
+
 };
 
-blog.truncateArticles = function() {
-  console.log('truncate');
-  // $('.blog-body').hide();
-  ///taken from demo and adapted to fit my code base.
-  $('.blog-body').children(':nth-child(n+5)').hide();
-  $('main').on('click', '.readOn', function(event){
-    event.preventDefault();
-    $(this).prev('.blog-body').children().fadeIn();
-    // $(this).parent().find('.blog-body').fadeIn();
-    $(this).hide();
-  });
-};
+
 blog.makeFilterList = function(array, prop) {
   // need to refactor to a function or use DB.
   for (var i = 0; i < this.articles.length; i++){
@@ -158,5 +165,6 @@ blog.showFilteredArts = function() {
 $(function() {
   console.log('document ready');
   webDB.init();
+  webDB.setupTables();
   blog.compileTemplate();
 });

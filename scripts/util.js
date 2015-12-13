@@ -13,3 +13,15 @@ util.toggleAboutMe = function() {
     $('.blogPosts').fadeIn();
   });
 };
+util.truncateArticles = function() {
+  console.log('truncate');
+  // $('.blog-body').hide();
+  ///taken from demo and adapted to fit my code base.
+  $('.blog-body').children(':nth-child(n+5)').hide();
+  $('main').on('click', '.readOn', function(event){
+    event.preventDefault();
+    $(this).prev('.blog-body').children().fadeIn();
+    // $(this).parent().find('.blog-body').fadeIn();
+    $(this).hide();
+  });
+};

@@ -12,7 +12,7 @@
 //     return Math.round(Math.abs((postDate.getTime()-today.getTime())/(oneDay)));
 //   };
 // };
-/////////taken from demo/////
+/////////taken from demo//////////////////////////////////
 function Article (opts) {
   Object.keys(opts).forEach(function(e, index, keys) {
     this[e] = opts[e];
@@ -20,12 +20,19 @@ function Article (opts) {
 
   this.markdown = marked(this.markdown);
 }
-//////////////////////////////
+///////////////////////////////////////////////////////
 Article.prototype.daysSincePost = function () {
   var today = new Date();
   var oneDay = 24*60*60*1000;
   var postDate = new Date(this.publishedOn);
-  return Math.round(Math.abs((postDate.getTime()-today.getTime())/(oneDay)));
+  if(postDate < today){
+    var days = Math.round(Math.abs((postDate.getTime()-today.getTime())/(oneDay)));
+    return ' was posted '+ days + ' ago.';
+  }
+  else{
+    var futureDays = Math.round(Math.abs((today.getTime()-postDate.getTime())/(oneDay)));
+    return ' was somehow posted '+ futureDays + ' from now!' ;
+  }
 };
 Article.prototype.toHTML = function(){
   var html = this.compiled(this);

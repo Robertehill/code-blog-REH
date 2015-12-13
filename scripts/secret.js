@@ -17,7 +17,9 @@ preview.getFormInfo = function() {
     };
     var post = new Article(newPost);
     var html = post.compiled(post);
+
     $('#preview').html(html);
+
     $('code').each(function(i, block) {
       hljs.highlightBlock(block);
     });
