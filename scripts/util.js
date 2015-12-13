@@ -1,4 +1,5 @@
 var util = {};
+//not sure this belongs here 
 util.toggleAboutMe = function() {
   $('header').on('click', '#showAboutMe', function(event){
     event.preventDefault();

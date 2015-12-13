@@ -87,7 +87,7 @@ img {
   padding: 1em;
 }
 
-#formBody {
+.formBody{
   width: 80%;
   height: 15em;
 

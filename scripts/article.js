@@ -41,7 +41,7 @@ Article.prototype.toHTML = function(){
 Article.prototype.updateRecord = function(callback) {
   webDB.execute(
     [{
-      // target id
+      // need to target id //does this replace the row or will I need to Delete the row first?
       'sql': 'INSERT INTO articles (blogTitle, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
       'data': [article.blogTitle, article.author, article.authorUrl, article.category, article.publishedOn, article.markdown]
     }]

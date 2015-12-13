@@ -4,7 +4,6 @@ blog.filtCat = [];
 blog.articles = [];
 blog.render = function(){
   console.log('start render');
-  util.toggleAboutMe();
   blog.sortArts();// SQl does this for me know but loading from JSON in still unsorted,
 
   // will refactor later using forEach
@@ -16,6 +15,7 @@ blog.render = function(){
   $('code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
+  util.toggleAboutMe();
   util.truncateArticles();
   blog.showFilteredArts();
 };
@@ -50,20 +50,15 @@ blog.updateFromJSON = function (data) {
   console.log('loading from json');
   data.forEach(function(item) {
     var article = new Article(item);
-    // a sort by date function here.
     blog.articles.push(article);
-    blog.sortArts();
-    // Cache the article in DB
     blog.insertArticleToDB(article);
   });
   blog.initArticles();
-
 };
 blog.fetchJSON = function() {
   console.log('fetchJson');//stoping here for some reason it was working no idea when/why it stoped
   $.getJSON('data/hackerIpsum.json',blog.updateFromJSON);
 };
-
 blog.fetchFromDB = function(callback) {
   callback = callback || function() {};
   console.log('fetch from db');
@@ -106,19 +101,12 @@ blog.getTemplate = function (data) {
     type: 'HEAD',
     url: 'data/hackerIpsum.json',
     success: blog.fetchArticles
-
   });
-
-
 };
 blog.compileTemplate = function(){
   console.log('compile template');
   $.get('templates/article-template.handlebars', blog.getTemplate);
-
-
 };
-
-
 blog.makeFilterList = function(array, prop) {
   // need to refactor to a function or use DB.
   for (var i = 0; i < this.articles.length; i++){
