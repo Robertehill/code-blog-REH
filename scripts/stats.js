@@ -5,7 +5,6 @@ stats.wordCountPerArticle = [];
 stats.fetchFromDB = function(callback) {
   callback = callback || function() {};
   console.log('fetch from db for stats page');
-  // webDB.setupTables();// not sure where the best place for this is.
   // Fetch all articles from db.
   webDB.execute(
     //this only sorts when put into DB, loading from JSON is not sorted
@@ -49,20 +48,25 @@ stats.excludeList = function(segment) {
   && !segment.startsWith('<')
   && !segment.startsWith('com/')
   && !segment.startsWith('http')
-  && segment !== ("");
+  && !segment.startsWith('id=')
+  && segment !== ("");// linter does not like this but can't remove "" from the array with songle quotes
 };
-//it's broken here I think
-stats.totalWords = function(){
+stats.totalWords;
+
+stats.getTotalWords = function(){
   console.log('getting total words');
   _.reduce(stats.wordCountPerArticle, function(total, n) {
-    console.log(total+n);
-    //not returning a number anymore
-    return total + n;
+    var num = total+n;
+    // console.log(num);
+    stats.totalWords = num;
+    //returns undefine
+    return (num);
   });
 };
+
 stats.countWordsPerArticle = function(article) {
   console.log('counting words per article');
-  // console.log(article.markdown.split(/\s|\.|\>|\;|,|-|"|\?/).filter(stats.excludeList));
+  // console.log(article.markdown.split(/\s|\.|\>|\;|,|-|"|!|\?/).filter(stats.excludeList));
   // my first regx
   //this should spilt the string at every blank space (\s) period (\.) Greater than (\>) semi colon (\;) and equal (=) use (|) to seperate the characters.
   //then filter it based on the excludeList
@@ -70,7 +74,7 @@ stats.countWordsPerArticle = function(article) {
 };
 stats.avgWordsPerArt = function(array) {
   console.log('getting avg words per art');
-  return Math.round(stats.totalWords() / stats.getArrayLength(array));
+  return Math.round(stats.totalWords / stats.getArrayLength(array));
 };
 stats.avgWordLength = function(argument) {
   // here for future use
@@ -80,10 +84,11 @@ stats.toHtml = function(text, value){
   $('#blog-stats-section').append(text + ' : ' + value + '<br />');
 };
 stats.render = function(){
+  stats.getTotalWords();
   stats.toHtml('Number of Articles', stats.getArrayLength(stats.rawData));
   stats.toHtml('Number of Authors', stats.getNumOfProp(stats.rawData, 'author'));
   stats.toHtml('Number of Categories' , stats.getNumOfProp(stats.rawData, 'category'));
-  stats.toHtml('Number of Words', stats.totalWords());
+  stats.toHtml('Number of Words', stats.totalWords);
   stats.toHtml('Average words per Article', stats.avgWordsPerArt(stats.rawData));
 };
 $(function(){

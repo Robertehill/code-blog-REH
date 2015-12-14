@@ -18,7 +18,7 @@ function Article (opts) {
     this[e] = opts[e];
   },this);
 
-  this.markdown = marked(this.markdown);
+  this.markdown = this.markdown;
 }
 ///////////////////////////////////////////////////////
 Article.prototype.daysSincePost = function () {
@@ -35,6 +35,7 @@ Article.prototype.daysSincePost = function () {
   }
 };
 Article.prototype.toHTML = function(){
+  this.markdown = marked(this.markdown);
   var html = this.compiled(this);
   $('main').append(html);
 };

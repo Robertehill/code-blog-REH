@@ -1,4 +1,17 @@
 var preview = {};
+preview.savePost = function(post) {
+  var savedPost = JSON.stringify(post);
+  localStorage.setItem('secretBlogPage', savedPost);
+};
+preview.loadPost = function(){
+  var savedPost = localStorage.getItem('secretBlogPage');
+  var parsePost = JSON.parse(savedPost);
+  $('#formTitle').val(parsePost.blogTitle);
+  $('#formCategory').val(parsePost.category);
+  $('#formAuthor').val(parsePost.author);
+  $('#formAuthorUrl').val(parsePost.authorUrl);
+  $('#formBody').val(parsePost.markdown);
+};
 preview.getFormInfo = function() {
   $('#formInfo').children().on('blur', function(event){
     event.preventDefault();
@@ -8,9 +21,11 @@ preview.getFormInfo = function() {
       author: $('#formAuthor').val(),
       authorUrl: $('#formAuthorUrl').val(),
       publishedOn: util.getToday(),
-      markdown: marked($('#formBody').val())
+      markdown: $('#formBody').val()
     };
     var post = new Article(newPost);
+    preview.savePost(post);
+    post.markdown = marked(post.markdown);
     // var html = post.compiled(post);
     $('#preview').html(post.compiled(post));
     //removed pre becuase it would not highlight code tags without the pre tags
@@ -36,4 +51,5 @@ $(function() {
   webDB.init();
   webDB.setupTables();
   preview.compileTemplate();
+  preview.loadPost();
 });
