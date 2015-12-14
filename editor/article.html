@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/default.min.css">
+    <link rel = "stylesheet" type= "text/css" href = "/vendor/normalize.css"/>
+    <link rel = "stylesheet" type= "text/css" href = "/vendor/skeleton.css"/>
+    <link rel = "stylesheet" type= "text/css" href = "/styles/style.css"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <title>Editor</title>
+  </head>
+  <body>
+    <main>
+      <section>
+        <ul>
+          <li id="remove-post">Remove post</li>
+          <li id="save-post">Save changes</li>
+          <li></li>
+        </ul>
+      </section>
+      <section id="editor-section">
+        <form id="editor-form" class="bg-White">
+          Blog Title<br />
+          <input type="text" id="editor-title"></input>
+          <br />
+          Author <br />
+          <input type="text" id="editor-author"></input>
+          <br />
+          Author Url<br />
+          <input type="text" id="editor-authorUrl"></input>
+          <br />
+          Category<br />
+          <input type="text" id="editor-category"></input>
+          <br />
+          Body<br />
+          <textarea id="editor-body" class ="formBody"></textarea>
+          <br />
+        </form>
+      </section>
+      <section id="preview">
+      </section>
+    </main>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+    <script type="text/javascript"src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
+    <srcipt  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+      <script type="text/javascript" src ="vendor/scripts/html5sql.js"></script>
+      <script type="text/javascript" src ="scripts/webdb.js"></script>
+    
+  </body>
+</html>

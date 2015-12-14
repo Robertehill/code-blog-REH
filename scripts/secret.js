@@ -1,23 +1,37 @@
 var preview = {};
+preview.savePost = function(post) {
+  var savedPost = JSON.stringify(post);
+  localStorage.setItem('secretBlogPage', savedPost);
+};
+preview.loadPost = function(){
+  var savedPost = localStorage.getItem('secretBlogPage');
+  if (!savedPost){
+    return;
+  }
+  var parsePost = JSON.parse(savedPost);
+  $('#formTitle').val(parsePost.blogTitle);
+  $('#formCategory').val(parsePost.category);
+  $('#formAuthor').val(parsePost.author);
+  $('#formAuthorUrl').val(parsePost.authorUrl);
+  $('#formBody').val(parsePost.markdown);
+};
 preview.getFormInfo = function() {
   $('#formInfo').children().on('blur', function(event){
     event.preventDefault();
-    var dateObj = new Date();
-    var month =  dateObj.getUTCMonth() + 1;
-    var day = dateObj.getUTCDate();
-    var year = dateObj.getUTCFullYear();
-    var today = year + '-' + month + '-' + day;
     var newPost = {
       blogTitle: $('#formTitle').val(),
       category:  $('#formCategory').val(),
       author: $('#formAuthor').val(),
       authorUrl: $('#formAuthorUrl').val(),
-      publishedOn: today,
-      blogBody: marked($('#formBody').val())
+      publishedOn: util.getToday(),
+      markdown: $('#formBody').val()
     };
     var post = new Article(newPost);
-    var html = post.compiled(post);
-    $('#preview').html(html);
+    preview.savePost(post);
+    post.markdown = marked(post.markdown);
+    // var html = post.compiled(post);
+    $('#preview').html(post.compiled(post));
+    //removed pre becuase it would not highlight code tags without the pre tags
     $('code').each(function(i, block) {
       hljs.highlightBlock(block);
     });
@@ -25,6 +39,7 @@ preview.getFormInfo = function() {
       event.preventDefault();
       var jsonPost = JSON.stringify(newPost);
       $('#stringified').val(jsonPost);
+      //post.updateRecord();//here for future use maybe.
     });
   });
 };
@@ -36,5 +51,8 @@ preview.compileTemplate = function(){
   });
 };
 $(function() {
+  webDB.init();
+  // webDB.setupTables();
   preview.compileTemplate();
+  preview.loadPost();
 });

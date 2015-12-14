@@ -1,4 +1,5 @@
 var util = {};
+//not sure this belongs here
 util.toggleAboutMe = function() {
   $('header').on('click', '#showAboutMe', function(event){
     event.preventDefault();
@@ -13,24 +14,24 @@ util.toggleAboutMe = function() {
     $('.blogPosts').fadeIn();
   });
 };
-util.getTemplate = function (data) {
-  Article.prototype.compiled = Handlebars.compile(data);
-};
-util.templateLoaded = function() {
-  util.toggleAboutMe();
-  blog.render();
-  util.truncateArticles();
-  blog.showFilteredArts();
-};
-util.compileTemplate = function(){
-  $.get('templates/article-template.handlebars', util.getTemplate)
-    .done(util.templateLoaded);
-};
+//not sure this belongs here
 util.truncateArticles = function() {
-  $('.blogBody p:not(:first-child)').hide();
+  console.log('truncate');
+  // $('.blog-body').hide();
+  ///taken from demo and adapted to fit my code base.
+  $('.blog-body').children(':nth-child(n+5)').hide();
   $('main').on('click', '.readOn', function(event){
     event.preventDefault();
-    $(this).parent().find('p').fadeIn();
+    $(this).prev('.blog-body').children().fadeIn();
+    // $(this).parent().find('.blog-body').fadeIn();
     $(this).hide();
   });
+};
+//pretty sure this does belong here
+util.getToday = function() {
+  var dateObj = new Date();
+  var month =  dateObj.getUTCMonth() + 1;
+  var day = dateObj.getUTCDate();
+  var year = dateObj.getUTCFullYear();
+  return year + '-' + month + '-' + day;
 };
