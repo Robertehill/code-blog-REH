@@ -10,7 +10,7 @@ blog.render = function(){
     var art = new Article(this.articles[i]);
     art.toHTML();
   }
-  //removed pre becuase it would not highlight code tags without the pre tags,
+  //removed 'pre' becuase it would not highlight code tags without the pre tags, aka inline markdown for code tags.
   $('code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
@@ -21,11 +21,9 @@ blog.render = function(){
 // needed to sort articles when loading from JSON
 blog.sortArts = function () {
   blog.articles.sort(function(a,b){
-    blog.articles.sort(function(a, b) {
-      a = new Date(a.publishedOn);
-      b = new Date(b.publishedOn);
-      return a>b ? -1 : a<b ? 1 : 0;
-    });
+    a = new Date(a.publishedOn);
+    b = new Date(b.publishedOn);
+    return a>b ? -1 : a<b ? 1 : 0;
   });
 };
 ////////////////taken from demo//////////////////

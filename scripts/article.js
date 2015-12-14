@@ -35,10 +35,12 @@ Article.prototype.daysSincePost = function () {
   }
 };
 Article.prototype.toHTML = function(){
+  // convert markdown text to html tags here.
   this.markdown = marked(this.markdown);
   var html = this.compiled(this);
   $('main').append(html);
 };
+//////////////taken from demo////////////////// not sure The SQL works yet. It's not wired to js file yet.
 Article.prototype.updateRecord = function(callback) {
   webDB.execute(
     [{

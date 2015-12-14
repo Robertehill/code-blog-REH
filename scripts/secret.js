@@ -5,6 +5,9 @@ preview.savePost = function(post) {
 };
 preview.loadPost = function(){
   var savedPost = localStorage.getItem('secretBlogPage');
+  if (!savedPost){
+    return;
+  }
   var parsePost = JSON.parse(savedPost);
   $('#formTitle').val(parsePost.blogTitle);
   $('#formCategory').val(parsePost.category);
@@ -36,7 +39,7 @@ preview.getFormInfo = function() {
       event.preventDefault();
       var jsonPost = JSON.stringify(newPost);
       $('#stringified').val(jsonPost);
-      //post.updateRecord();//here for future use.
+      //post.updateRecord();//here for future use maybe.
     });
   });
 };
@@ -49,7 +52,7 @@ preview.compileTemplate = function(){
 };
 $(function() {
   webDB.init();
-  webDB.setupTables();
+  // webDB.setupTables();
   preview.compileTemplate();
   preview.loadPost();
 });

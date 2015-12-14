@@ -42,14 +42,14 @@ stats.countAll = function() {
 };
 // I think there is a better way to do this but it works for the moment...i think
 stats.excludeList = function(segment) {
-  return !segment.startsWith('<img')
-  && !segment.startsWith('src=')
-  && !segment.startsWith('class=')
-  && !segment.startsWith('<')
-  && !segment.startsWith('com/')
-  && !segment.startsWith('http')
-  && !segment.startsWith('id=')
-  && segment !== ("");// linter does not like this but can't remove "" from the array with songle quotes
+  return !segment.startsWith('##')
+  // && !segment.startsWith('src=')
+  // && !segment.startsWith('class=')
+  // && !segment.startsWith('<')
+  // && !segment.startsWith('com/')
+  // && !segment.startsWith('http')
+  // && !segment.startsWith('id=')
+   && segment !== ("");// linter does not like this but can't remove "" from the array with songle quotes
 };
 stats.totalWords;
 
@@ -70,7 +70,7 @@ stats.countWordsPerArticle = function(article) {
   // my first regx
   //this should spilt the string at every blank space (\s) period (\.) Greater than (\>) semi colon (\;) and equal (=) use (|) to seperate the characters.
   //then filter it based on the excludeList
-  return article.markdown.split(/\s|\.|\>|\;|=|,|-/).filter(stats.excludeList).length;
+  return article.markdown.split(/\s|\.|\>|\;|,|-|"|!|\?/).filter(stats.excludeList).length;
 };
 stats.avgWordsPerArt = function(array) {
   console.log('getting avg words per art');
