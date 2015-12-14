@@ -1,10 +1,30 @@
 var stats = {};
-// will change this when I get JSON working.
-stats.rawData = blog.rawData;
+
+stats.rawData = [];
+stats.wordCountPerArticle = [];
+stats.fetchFromDB = function(callback) {
+  callback = callback || function() {};
+  console.log('fetch from db for stats page');
+  // webDB.setupTables();// not sure where the best place for this is.
+  // Fetch all articles from db.
+  webDB.execute(
+    //this only sorts when put into DB, loading from JSON is not sorted
+    'SELECT * FROM articles ORDER BY publishedOn DESC;',
+    function (resultArray) {
+      resultArray.forEach(function(ele) {
+        stats.rawData.push(new Article(ele));
+      });
+      stats.countAll();
+      stats.render();
+      // callback();
+    }
+  );
+};
 stats.getArrayLength = function(array){
   return array.length;
 };
 stats.getNumOfProp = function(items, prop) {
+  console.log('getting number of ' + prop);
   var unique = [];
   var numOfProp = [];
   _.each(items, function(item) {
@@ -15,8 +35,8 @@ stats.getNumOfProp = function(items, prop) {
   });
   return numOfProp.length;
 };
-stats.wordCountPerArticle = [];
 stats.countAll = function() {
+  console.log('counting all ');
   stats.rawData.forEach(function(article) {
     stats.wordCountPerArticle.push(stats.countWordsPerArticle(article));
   });
@@ -31,30 +51,43 @@ stats.excludeList = function(segment) {
   && !segment.startsWith('http')
   && segment !== ("");
 };
+//it's broken here I think
+stats.totalWords = function(){
+  console.log('getting total words');
+  _.reduce(stats.wordCountPerArticle, function(total, n) {
+    console.log(total+n);
+    //not returning a number anymore
+    return total + n;
+  });
+};
 stats.countWordsPerArticle = function(article) {
-  console.log(article.markdown.split(/\s|\.|\>|\;|,|-|"|\?/).filter(stats.excludeList));
+  console.log('counting words per article');
+  // console.log(article.markdown.split(/\s|\.|\>|\;|,|-|"|\?/).filter(stats.excludeList));
   // my first regx
   //this should spilt the string at every blank space (\s) period (\.) Greater than (\>) semi colon (\;) and equal (=) use (|) to seperate the characters.
   //then filter it based on the excludeList
   return article.markdown.split(/\s|\.|\>|\;|=|,|-/).filter(stats.excludeList).length;
 };
-stats.countAll();
-stats.totalWords = _.reduce(stats.wordCountPerArticle, function(total, n) {
-  return total + n;
-});
 stats.avgWordsPerArt = function(array) {
-  return Math.round(stats.totalWords / stats.getArrayLength(array));
+  console.log('getting avg words per art');
+  return Math.round(stats.totalWords() / stats.getArrayLength(array));
 };
 stats.avgWordLength = function(argument) {
   // here for future use
 };
 stats.toHtml = function(text, value){
+  console.log('to HTML');
   $('#blog-stats-section').append(text + ' : ' + value + '<br />');
 };
-$(function(){
+stats.render = function(){
   stats.toHtml('Number of Articles', stats.getArrayLength(stats.rawData));
   stats.toHtml('Number of Authors', stats.getNumOfProp(stats.rawData, 'author'));
   stats.toHtml('Number of Categories' , stats.getNumOfProp(stats.rawData, 'category'));
-  stats.toHtml('Number of Words', stats.totalWords);
+  stats.toHtml('Number of Words', stats.totalWords());
   stats.toHtml('Average words per Article', stats.avgWordsPerArt(stats.rawData));
+};
+$(function(){
+  webDB.init();
+  stats.fetchFromDB();
+
 });

@@ -14,6 +14,7 @@ util.toggleAboutMe = function() {
     $('.blogPosts').fadeIn();
   });
 };
+//not sure this belongs here
 util.truncateArticles = function() {
   console.log('truncate');
   // $('.blog-body').hide();
@@ -26,6 +27,7 @@ util.truncateArticles = function() {
     $(this).hide();
   });
 };
+//pretty sure this does belong here
 util.getToday = function() {
   var dateObj = new Date();
   var month =  dateObj.getUTCMonth() + 1;

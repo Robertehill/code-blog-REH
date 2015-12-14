@@ -61,7 +61,7 @@ Article.prototype.truncateTable = function(callback) {
   // Delete all records from given table.
   webDB.execute(
     [{
-      'sql': 'DROP TABLE articles'
+      'sql': 'DELETE * FROM articles'
     }]
   );
   callback;
