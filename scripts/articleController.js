@@ -11,7 +11,7 @@ articleController.showAboutMe = function(){
 articleController.loadALLArts = function(){
   $('#aboutMeArticle').hide();
   $('#filteringForm').fadeIn();
-  //this is not working as expected. It  should
+  //this is not working as expected. I want it to only load if they are not there already
   // if( $('.blogPost').length > 1){
   //   $('.blogPosts').show();
   // }
