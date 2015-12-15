@@ -21,6 +21,8 @@ function Article (opts) {
   this.markdown = this.markdown;
 }
 ///////////////////////////////////////////////////////
+//Article.allArts = [];
+
 Article.prototype.daysSincePost = function () {
   var today = new Date();
   var oneDay = 24*60*60*1000;
