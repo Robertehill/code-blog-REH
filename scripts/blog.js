@@ -14,7 +14,6 @@ blog.render = function(){
   $('code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
-  // util.toggleAboutMe();
   util.truncateArticles();
   blog.showFilteredArts();
 };
@@ -144,9 +143,3 @@ blog.showFilteredArts = function() {
     }
   });
 };
-$(function() {
-  console.log('document ready');
-  webDB.init();
-  webDB.setupTables();
-  // blog.compileTemplate();
-});

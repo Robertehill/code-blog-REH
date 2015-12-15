@@ -21,7 +21,7 @@ function Article (opts) {
   this.markdown = this.markdown;
 }
 ///////////////////////////////////////////////////////
-//Article.allArts = [];
+Article.rawData = [];
 
 Article.prototype.daysSincePost = function () {
   var today = new Date();
@@ -47,7 +47,7 @@ Article.prototype.updateRecord = function(callback) {
   webDB.execute(
     [{
       'sql': 'UPDATE articles SET blogTitle=? author=? authorUrl=? category=? publishedOn=? markdown=? WHERE id=?',
-      'data': [this.blogTitle, this.author, this.authorUrl, this.category, this,publishedOn, this.markdown]
+      'data': [this.blogTitle, this.author, this.authorUrl, this.category, this,publishedOn, this.markdown, this.id]
     }]
   );
   callback;
@@ -56,7 +56,8 @@ Article.prototype.deleteRecord = function(callback) {
   // Delete article record in database
   webDB.execute(
     [{
-      'sql': 'DELETE FROM articles WHERE id=this.id'
+      'sql': 'DELETE FROM articles WHERE id=?',
+      'data': [this.id]
 
     }]
   );
