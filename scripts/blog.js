@@ -61,7 +61,7 @@ blog.fetchFromDB = function(callback) {
   console.log('fetch from db');
   // Fetch all articles from db.
   webDB.execute(
-    //this only sorts when put into DB, loading from JSON is not sorted
+    //this only sorts when put into DB, loading from JSON is not sorted by date
     'SELECT * FROM articles ORDER BY publishedOn DESC;',
     function (resultArray) {
       resultArray.forEach(function(ele) {
@@ -148,5 +148,5 @@ $(function() {
   console.log('document ready');
   webDB.init();
   webDB.setupTables();
-  blog.compileTemplate();
+  // blog.compileTemplate();
 });
