@@ -44,7 +44,7 @@ preview.getFormInfo = function() {
   });
 };
 preview.compileTemplate = function(){
-  $.get('templates/article-template.handlebars', function(data){
+  $.get('templates/article-template.html', function(data){
     Article.prototype.compiled = Handlebars.compile(data);
   }).done(function() {
     preview.getFormInfo();

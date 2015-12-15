@@ -10,11 +10,11 @@ blog.render = function(){
     var art = new Article(this.articles[i]);
     art.toHTML();
   }
-  //removed 'pre' becuase it would not highlight code tags without the pre tags, aka inline markdown for code tags.
+  //removed 'pre' becuase it would not highlight code tags without the pre tags, aka inline markdown code tags.
   $('code').each(function(i, block) {
     hljs.highlightBlock(block);
   });
-  util.toggleAboutMe();
+  // util.toggleAboutMe();
   util.truncateArticles();
   blog.showFilteredArts();
 };
@@ -59,7 +59,6 @@ blog.fetchJSON = function() {
 blog.fetchFromDB = function(callback) {
   callback = callback || function() {};
   console.log('fetch from db');
-  // webDB.setupTables();// not sure where the best place for this is.
   // Fetch all articles from db.
   webDB.execute(
     //this only sorts when put into DB, loading from JSON is not sorted
@@ -90,17 +89,17 @@ blog.insertArticleToDB = function(article) {
 blog.getTemplate = function (data) {
   console.log('getting template');
   Article.prototype.compiled = Handlebars.compile(data);
-  ////taken from demo/////////////
+  ////taken from demo/////////////////
   $.ajax({
     type: 'HEAD',
     url: 'data/hackerIpsum.json',
     success: blog.fetchArticles
   });
-  ////////////////////////////////
+  ///////////////////////////////////
 };
 blog.compileTemplate = function(){
   console.log('compile template');
-  $.get('templates/article-template.handlebars', blog.getTemplate);
+  $.get('templates/article-template.html', blog.getTemplate);
 };
 blog.makeFilterList = function(array, prop) {
   // need to refactor to a function or use DB.

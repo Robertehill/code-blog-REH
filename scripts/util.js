@@ -1,19 +1,20 @@
 var util = {};
-//not sure this belongs here
-util.toggleAboutMe = function() {
-  $('header').on('click', '#showAboutMe', function(event){
-    event.preventDefault();
-    $('#filteringForm').fadeOut();
-    $('.blogPosts').fadeOut();
-    $('#aboutMeArticle').fadeIn();
-  });
-  $('header').on('click', '#showArts', function(event){
-    event.preventDefault();
-    $('#aboutMeArticle').fadeOut();
-    $('#filteringForm').fadeIn();
-    $('.blogPosts').fadeIn();
-  });
-};
+//not needed anymore
+// util.showAboutMe = function() {
+  // console.log(' about me toggle');
+  // // $('header').on('click', '#showAboutMe', function(event){
+  //   // event.preventDefault();
+  // $('#filteringForm').fadeOut();
+  // $('.blogPosts').fadeOut();
+  // $('#aboutMeArticle').fadeIn();
+  // });
+  // $('header').on('click', '#showArts', function(event){
+  //   event.preventDefault();
+  //   $('#aboutMeArticle').fadeOut();
+  //   $('#filteringForm').fadeIn();
+  //   $('.blogPosts').fadeIn();
+  // });
+// };
 //not sure this belongs here
 util.truncateArticles = function() {
   console.log('truncate');
@@ -27,7 +28,7 @@ util.truncateArticles = function() {
     $(this).hide();
   });
 };
-//pretty sure this does belong here
+//this does belong here
 util.getToday = function() {
   var dateObj = new Date();
   var month =  dateObj.getUTCMonth() + 1;
