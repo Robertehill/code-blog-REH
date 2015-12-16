@@ -1,9 +1,9 @@
 page('/', function() {
-  console.log('router /');
+  // console.log('router /');
   articleController.loadALLArts();
 });
 page('/about', function() {
-  console.log('router /about');
+  // console.log('router /about');
   repoController.showAboutMe();
 });
 

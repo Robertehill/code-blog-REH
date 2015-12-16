@@ -6,7 +6,7 @@ articleController.loadALLArts = function(){
   $('#filteringForm').fadeIn();
   //I want it to only load if they are not there already
   if( $('article').length > 0 ){
-    console.log('article ele found');
+    // console.log('article ele found');
     $('.blogPosts').fadeIn();
   }
   else{

@@ -8,7 +8,7 @@ repos.requstAll = function(callback){
     headers: {Authorization: 'token ' + githubToken}
   }).done(function(data){
     repos.rawRepos = data;
-    console.log(data);
+    // console.log(data);
   }).done(callback);
 };
 repos.filterRepoList = function(){
@@ -23,13 +23,13 @@ repos.filterRepoList = function(){
 repos.render = function(){
   repos.sortedRepos = [];
   repos.filterRepoList();
-
   $.each(repos.sortedRepos, function(index, value){
     $('#repo-list')
     .append($('<li>')
     .append($('<a>')
     .attr('href',this.html_url)
-    .html(this.full_name)))
+    .attr('target','_blank')
+    .text(this.full_name + ' was last updated on ' + this.updated_at.slice(0,10))))
     .append($('<ul>')
     .append($('<li>').text(this.stargazers_count + ' people watching this repo'))
     .append($('<li>').text(this.forks + ' forks of this repo')));

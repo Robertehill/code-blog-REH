@@ -72,29 +72,14 @@ Article.prototype.truncateTable = function(callback) {
   );
   callback;
 };
-/////////taken from demo, here for easy reference//////////////////////////
-// Article.prototype.updateRecord = function(callback) {
-//   //update article record in databse
-//   webDB.execute(
-//
-//     callback
-//   );
-// };
-//
-// Article.prototype.deleteRecord = function(callback) {
-//   // Delete article record in database
-//   webDB.execute(
-//     // TODO: Add SQL here...
-//     ,
-//     callback
-//   );
-// };
-//
-// Article.prototype.truncateTable = function(callback) {
-//   // Delete all records from given table.
-//   webDB.execute(
-//     // TODO: Add SQL here...
-//     ,
-//     callback
-//   );
-// };
+Article.truncateArticles = function() {
+  // console.log('truncate');
+  ///taken from demo and adapted to fit my code base.
+  $('.blog-body').children(':nth-child(n+3)').hide();
+  $('main').on('click', '.readOn', function(event){
+    event.preventDefault();
+    $(this).prev('.blog-body').children().fadeIn();
+    // $(this).parent().find('.blog-body').fadeIn();
+    $(this).hide();
+  });
+};
