@@ -4,7 +4,7 @@ page('/', function() {
 });
 page('/about', function() {
   console.log('router /about');
-  articleController.showAboutMe();
+  repoController.showAboutMe();
 });
 
 page.start();

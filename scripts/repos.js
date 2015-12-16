@@ -9,12 +9,10 @@ repos.requstAll = function(callback){
   }).done(function(data){
     repos.rawRepos = data;
     console.log(data);
-  }).done(function(){
-    repos.filterRepoList();
-    callback();
-  });
+  }).done(callback);
 };
 repos.filterRepoList = function(){
+
   $.each(repos.rawRepos,function(){
     // console.log(this);
     if (this.fork === false){
@@ -23,6 +21,9 @@ repos.filterRepoList = function(){
   });
 };
 repos.render = function(){
+  repos.sortedRepos = [];
+  repos.filterRepoList();
+
   $.each(repos.sortedRepos, function(index, value){
     $('#repo-list')
     .append($('<li>')

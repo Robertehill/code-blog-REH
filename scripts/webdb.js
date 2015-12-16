@@ -81,5 +81,4 @@ $(function() {
   console.log('document ready');
   webDB.init();
   webDB.setupTables();
-  // blog.compileTemplate();
 });
