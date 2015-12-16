@@ -3,7 +3,7 @@ repos.rawRepos = [];
 repos.sortedRepos = [];
 repos.requstAll = function(callback){
   $.ajax({
-    url: '/github/user/repos' +
+    url: '/github/users/Robertehill/repos' +
           '?per_page=100' +
           '&sort=updated',
     type: 'GET',
