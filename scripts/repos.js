@@ -3,12 +3,13 @@ repos.rawRepos = [];
 repos.sortedRepos = [];
 repos.requstAll = function(callback){
   $.ajax({
+    url: '/github/users/brookr/repos' +
+          '?per_page=100' +
+          '&sort=updated',
     type: 'GET',
-    url: 'https://api.github.com/user/repos?sort=updated&per_page=100',
-    headers: {Authorization: 'token ' + githubToken}
-  }).done(function(data){
-    repos.rawRepos = data;
-    // console.log(data);
+    success: function(data, message, xhr) {
+      repos.rawRepos = data;
+    }
   }).done(callback);
 };
 repos.filterRepoList = function(){
