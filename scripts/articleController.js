@@ -1,11 +1,12 @@
 articleController ={};
 // shows aboutME when clicking the link or typing in the URL
-// articleController.showAboutMe = function(){
-//   console.log('AC about me show');
-//   $('#filteringForm').hide();
-//   $('.blogPosts').hide();
-//   $('#aboutMeArticle').fadeIn();
-// };
+articleController.showAboutMe = function(){
+  console.log('AC about me show');
+  repos.requstAll(repos.render);
+  $('#filteringForm').hide();
+  $('.blogPosts').hide();
+  $('#aboutMeArticle').fadeIn();
+};
 articleController.loadALLArts = function(){
   $('#aboutMeArticle').hide();
   $('#filteringForm').fadeIn();

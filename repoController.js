@@ -1,5 +1,5 @@
 var repoController = {};
 
-repoController.index = function(){
-  repos.requestAll(repoVeiw);
-};
+// repoController.index = function(){
+//   repos.requestAll(repoVeiw);
+// };
