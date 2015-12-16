@@ -15,7 +15,7 @@ repos.filterRepoList = function(){
   repos.sortedRepos = [];
   $.each(repos.rawRepos,function(){
     // console.log(this);
-    if (this.fork === false){
+    if (!this.fork){
       repos.sortedRepos.push(this);
     }
   });
