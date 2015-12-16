@@ -8,7 +8,7 @@ repos.requstAll = function(callback){
           '&sort=updated',
     type: 'GET',
     success: function(data, message, xhr) {
-      repos.all = data;
+      repos.rawRepos = data;
     }
   }).done(callback);
 };
