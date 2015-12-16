@@ -4,7 +4,7 @@ repos.sortedRepos = [];
 repos.requstAll = function(callback){
   $.ajax({
     type: 'GET',
-    url: 'https://api.github.com/users/Robertehill/repos?sort=updated&per_page=100',
+    url: 'https://api.github.com/user/repos?sort=updated&per_page=100',
     headers: {Authorization: 'token ' + githubToken}
   }).done(function(data){
     repos.rawRepos = data;
@@ -12,7 +12,7 @@ repos.requstAll = function(callback){
   }).done(callback);
 };
 repos.filterRepoList = function(){
-
+  repos.sortedRepos = [];
   $.each(repos.rawRepos,function(){
     // console.log(this);
     if (this.fork === false){
@@ -23,6 +23,7 @@ repos.filterRepoList = function(){
 repos.render = function(){
   repos.sortedRepos = [];
   repos.filterRepoList();
+  //could be done with a template
   $.each(repos.sortedRepos, function(index, value){
     $('#repo-list')
     .append($('<li>')

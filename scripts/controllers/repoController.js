@@ -2,6 +2,7 @@ var repoController = {};
 
 repoController.showAboutMe = function(){
   // console.log('AC about me show');
+  //should be moved to view. 
   $('#filteringForm').hide();
   $('.blogPosts').hide();
   if ($('#repo-list').has('li').length){

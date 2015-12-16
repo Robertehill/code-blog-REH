@@ -51,8 +51,6 @@ preview.compileTemplate = function(){
   });
 };
 $(function() {
-  webDB.init();
-  // webDB.setupTables();
   preview.compileTemplate();
   preview.loadPost();
 });
