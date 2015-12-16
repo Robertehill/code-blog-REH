@@ -3,7 +3,7 @@ repos.rawRepos = [];
 repos.sortedRepos = [];
 repos.requstAll = function(callback){
   $.ajax({
-    url: '/github/users/brookr/repos' +
+    url: '/github/user/repos?sort=updated&per_page=100' +
           '?per_page=100' +
           '&sort=updated',
     type: 'GET',
