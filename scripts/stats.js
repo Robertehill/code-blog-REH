@@ -4,7 +4,7 @@ stats.rawData = [];
 stats.wordCountPerArticle = [];
 stats.fetchFromDB = function(callback) {
   callback = callback || function() {};
-  console.log('fetch from db for stats page');
+  // console.log('fetch from db for stats page');
   // Fetch all articles from db.
   webDB.execute(
     //this only sorts when put into DB, loading from JSON is not sorted
@@ -23,7 +23,7 @@ stats.getArrayLength = function(array){
   return array.length;
 };
 stats.getNumOfProp = function(items, prop) {
-  console.log('getting number of ' + prop);
+  // console.log('getting number of ' + prop);
   var unique = [];
   var numOfProp = [];
   _.each(items, function(item) {
@@ -35,7 +35,7 @@ stats.getNumOfProp = function(items, prop) {
   return numOfProp.length;
 };
 stats.countAll = function() {
-  console.log('counting all ');
+  // console.log('counting all ');
   stats.rawData.forEach(function(article) {
     stats.wordCountPerArticle.push(stats.countWordsPerArticle(article));
   });
@@ -54,7 +54,7 @@ stats.excludeList = function(segment) {
 stats.totalWords;
 
 stats.getTotalWords = function(){
-  console.log('getting total words');
+  // console.log('getting total words');
   _.reduce(stats.wordCountPerArticle, function(total, n) {
     var num = total+n;
     // console.log(num);
@@ -65,7 +65,7 @@ stats.getTotalWords = function(){
 };
 
 stats.countWordsPerArticle = function(article) {
-  console.log('counting words per article');
+  // console.log('counting words per article');
   // console.log(article.markdown.split(/\s|\.|\>|\;|,|-|"|!|\?/).filter(stats.excludeList));
   // my first regx
   //this should spilt the string at every blank space (\s) period (\.) Greater than (\>) semi colon (\;) and equal (=) use (|) to seperate the characters.
@@ -73,14 +73,14 @@ stats.countWordsPerArticle = function(article) {
   return article.markdown.split(/\s|\.|\>|\;|,|-|"|!|\?/).filter(stats.excludeList).length;
 };
 stats.avgWordsPerArt = function(array) {
-  console.log('getting avg words per art');
+  // console.log('getting avg words per art');
   return Math.round(stats.totalWords / stats.getArrayLength(array));
 };
 stats.avgWordLength = function(argument) {
   // here for future use
 };
 stats.toHtml = function(text, value){
-  console.log('to HTML');
+  // console.log('to HTML');
   $('#blog-stats-section').append(text + ' : ' + value + '<br />');
 };
 stats.render = function(){

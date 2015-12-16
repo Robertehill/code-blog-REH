@@ -77,3 +77,8 @@ webDB.execute = function (sql, callback) {
     }
   );
 };
+$(function() {
+  console.log('document ready');
+  webDB.init();
+  webDB.setupTables();
+});

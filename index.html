@@ -41,12 +41,10 @@
       </select>
     </form>
     <main>
-      <section id="aboutMeArticle" class="display-none bg-White">Stuff about Robert!
-          <ul>
-            <li>I like camping</li>
-            <li> more stuff I like</li>
-            <li>and some Blah!!!</li>
-          </ul>
+      <section id="aboutMeArticle" class="display-none bg-White">
+          <h3>Robert's code repositories</h3>
+          <!-- <a href= "mailto:codingbyrobert.com">Contact Robert!</a> -->
+          <ul id="repo-list"></ul>
       </section>
     </main>
     <footer>
@@ -62,9 +60,11 @@
     <script type="text/javascript" src ="scripts/article.js"></script>
     <script type="text/javascript" src ="scripts/blog.js"></script>
     <script type="text/javascript" src ="scripts/blogArticles.js"></script>
-    <script type="text/javascript" src ="scripts/articleController.js"></script>
+    <script type="text/javascript" src ="scripts/controllers/articleController.js"></script>
+    <script type="text/javascript" src="scripts/controllers/githubToken.js"></script>
+    <script type="text/javascript" src="scripts/repos.js"></script>
+    <script type="text/javascript" src ="scripts/controllers/repoController.js"></script>
 
-    </script>
-    <script type="text/javascript" src ="scripts/router.js"></script>
+    <script type="text/javascript" src ="scripts/controllers/router.js"></script>
   </body>
 </html>
