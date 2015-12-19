@@ -1,27 +1,12 @@
-// var Article = function(props){
-//   this.author = props.author;
-//   this.authorUrl = props.authorUrl;
-//   this.blogTitle = props.blogTitle;
-//   this.markdown = marked(props.markdown);
-//   this.publishedOn = props.publishedOn;
-//   this.category = props.category;
-//   this.daysSincePost = function(){
-//     var today = new Date();
-//     var oneDay = 24*60*60*1000;
-//     var postDate = new Date(this.publishedOn);
-//     return Math.round(Math.abs((postDate.getTime()-today.getTime())/(oneDay)));
-//   };
-// };
-/////////taken from demo//////////////////////////////////
 function Article (opts) {
   Object.keys(opts).forEach(function(e, index, keys) {
     this[e] = opts[e];
   },this);
 
-  this.markdown = this.markdown;
+  // this.markdown = this.markdown;
 }
 ///////////////////////////////////////////////////////
-Article.rawData = [];
+Article.articles = [];
 
 Article.prototype.daysSincePost = function () {
   var today = new Date();
@@ -36,14 +21,15 @@ Article.prototype.daysSincePost = function () {
     return ' was somehow posted '+ futureDays + ' from now?!' ;
   }
 };
-Article.prototype.toHTML = function(){
-  // convert markdown text to html tags here.
-  this.markdown = marked(this.markdown);
-  var html = this.compiled(this);
-  $('main').append(html);
-};
+// Article.prototype.toHTML = function(){
+//   // convert markdown text to html tags here.
+//   this.markdown = marked(this.markdown);
+//   var html = this.compiled(this);
+//   $('main').append(html);
+// };
 //////////////taken from demo////////////////// not sure The SQL works yet. It's not wired to js file yet.
 Article.prototype.updateRecord = function(callback) {
+  callback = callback || function() {};
   webDB.execute(
     [{
       'sql': 'UPDATE articles SET blogTitle=? author=? authorUrl=? category=? publishedOn=? markdown=? WHERE id=?',
@@ -53,6 +39,7 @@ Article.prototype.updateRecord = function(callback) {
   callback;
 };
 Article.prototype.deleteRecord = function(callback) {
+  callback = callback || function() {};
   // Delete article record in database
   webDB.execute(
     [{
@@ -64,6 +51,7 @@ Article.prototype.deleteRecord = function(callback) {
   callback;
 };
 Article.prototype.truncateTable = function(callback) {
+  callback = callback || function() {};
   // Delete all records from given table.
   webDB.execute(
     [{
@@ -71,6 +59,18 @@ Article.prototype.truncateTable = function(callback) {
     }]
   );
   callback;
+};
+
+Article.findByCategory = function(category, callback) {
+  webDB.execute(
+    [
+      {
+        'sql': 'SELECT * FROM articles WHERE category = ?',
+        'data': [category]
+      }
+    ],
+    callback
+  );
 };
 Article.truncateArticles = function() {
   // console.log('truncate');

@@ -1,14 +1,15 @@
 var blog = {};
 blog.filtAut = [];
 blog.filtCat = [];
-blog.articles = [];
+// blog.articles = [];
 blog.render = function(){
-  // console.log('start render');
+  console.log('start render');
   blog.sortArts();// SQl does this for me know but loading from JSON is still unsorted,
   // should refactor later using forEach
-  for (var i = 0; i < this.articles.length; i++){
-    var art = new Article(this.articles[i]);
-    art.toHTML();
+  for (var i = 0; i < Article.articles.length; i++){
+    var art = new Article(Article.articles[i]);
+    //art.toHTML();
+
   }
   //removed 'pre' becuase it would not highlight code tags without the pre tags, aka inline markdown code tags.
   $('code').each(function(i, block) {
@@ -19,7 +20,7 @@ blog.render = function(){
 };
 // needed to sort articles when loading from JSON
 blog.sortArts = function () {
-  blog.articles.sort(function(a,b){
+  Article.articles.sort(function(a,b){
     a = new Date(a.publishedOn);
     b = new Date(b.publishedOn);
     return a>b ? -1 : a<b ? 1 : 0;
@@ -32,7 +33,7 @@ blog.fetchArticles = function(data, message, xhr) {
     // console.log('cache miss!');
     localStorage.articlesEtag = eTag;
     //clear and reload all data.
-    blog.articles = [];
+    Article.articles = [];
     webDB.execute(
       'DELETE FROM articles;',
        blog.fetchJSON);
@@ -43,28 +44,28 @@ blog.fetchArticles = function(data, message, xhr) {
   }
 };
 blog.updateFromJSON = function (data) {
-  // console.log('loading from json');
+  console.log('loading from json');
   data.forEach(function(item) {
     var article = new Article(item);
-    blog.articles.push(article);
+    Article.articles.push(article);
     blog.insertArticleToDB(article);
   });
   blog.initArticles();
 };
 blog.fetchJSON = function() {
-  // console.log('fetchJson');
+   console.log('fetchJson');
   $.getJSON('data/hackerIpsum.json',blog.updateFromJSON);
 };
 blog.fetchFromDB = function(callback) {
   callback = callback || function() {};
-  // console.log('fetch from db');
+  console.log('fetch from db');
   // Fetch all articles from db.
   webDB.execute(
     //this only sorts when put into DB, loading from JSON is not sorted by date
     'SELECT * FROM articles ORDER BY publishedOn DESC;',
     function (resultArray) {
       resultArray.forEach(function(ele) {
-        blog.articles.push(new Article(ele));
+        Article.articles.push(new Article(ele));
       });
       blog.initArticles();
       callback();
@@ -72,11 +73,12 @@ blog.fetchFromDB = function(callback) {
   );
 };
 blog.initArticles = function() {
-  // console.log('initArticles');
-  blog.render();
+   console.log('initArticles');
+  articleView.index();
+  // blog.render();
 };
 blog.insertArticleToDB = function(article) {
-  // console.log('insert to db');
+   console.log('insert to db');
   webDB.execute(
     [{
       'sql': 'INSERT INTO articles (blogTitle, author, authorUrl, category, publishedOn, markdown) VALUES (?, ?, ?, ?, ?, ?);',
@@ -85,21 +87,21 @@ blog.insertArticleToDB = function(article) {
   );
 };
 /////////////////////////////////////////////////////////////////
-blog.getTemplate = function (data) {
-  // console.log('getting template');
-  Article.prototype.compiled = Handlebars.compile(data);
-  ////taken from demo/////////////////
-  $.ajax({
-    type: 'HEAD',
-    url: 'data/hackerIpsum.json',
-    success: blog.fetchArticles
-  });
-  ///////////////////////////////////
-};
-blog.compileTemplate = function(){
-  // console.log('compile template');
-  $.get('templates/article-template.html', blog.getTemplate);
-};
+// blog.getTemplate = function (data) {
+//   // console.log('getting template');
+//   Article.prototype.compiled = Handlebars.compile(data);
+//   ////taken from demo/////////////////
+//   $.ajax({
+//     type: 'HEAD',
+//     url: 'data/hackerIpsum.json',
+//     success: blog.fetchArticles
+//   });
+//   ///////////////////////////////////
+// };
+// blog.compileTemplate = function(){
+//   // console.log('compile template');
+//   $.get('templates/article-template.html', blog.getTemplate);
+// };
 blog.makeFilterList = function(array, prop) {
   // need to refactor to a function or use DB.
   for (var i = 0; i < this.articles.length; i++){
@@ -121,7 +123,7 @@ blog.showFilteredArts = function() {
   blog.makeFilterList(blog.filtCat, 'category');
   $('#categoryList').change(function() {
     $('main').find('article').show();
-    // console.log(this.value);
+    console.log(this.value);
     $('#authorList').find(':first-child').attr('selected', true);
     if(this.value === 'reset'){
       $('main').find('article').show();
